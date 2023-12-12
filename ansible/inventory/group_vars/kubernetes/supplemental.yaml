@@ -1,0 +1,8 @@
+---
+timezone: "America/Chicago"
+github_username: "MegaShinySnivy"
+coredns_addr: "10.43.0.10"
+kube_vip_addr: "10.0.10.146"
+cluster_cidr: "10.42.0.0/16"
+service_cidr: "10.43.0.0/16"
+node_cidr: "10.0.10.0/24"

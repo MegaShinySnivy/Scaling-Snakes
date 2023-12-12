@@ -1,0 +1,25 @@
+---
+kubernetes:
+  children:
+    master:
+      hosts:
+        k8s-master-0:
+          ansible_user: rex
+          ansible_host: 10.0.10.140
+        k8s-master-1:
+          ansible_user: rex
+          ansible_host: 10.0.10.141
+        k8s-master-2:
+          ansible_user: rex
+          ansible_host: 10.0.10.142
+    worker:
+      hosts:
+        k8s-worker-3:
+          ansible_user: rex
+          ansible_host: 10.0.10.143
+        k8s-worker-4:
+          ansible_user: rex
+          ansible_host: 10.0.10.144
+        k8s-worker-5:
+          ansible_user: rex
+          ansible_host: 10.0.10.145
