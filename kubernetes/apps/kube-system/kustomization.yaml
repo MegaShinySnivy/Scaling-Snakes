@@ -10,3 +10,5 @@ resources:
   - ./reloader/ks.yaml
   - ./snapshot-controller/ks.yaml
   - ./system-upgrade-controller/ks.yaml
+  - ./csi-driver-nfs/ks.yaml
+  - ./descheduler/ks.yaml
