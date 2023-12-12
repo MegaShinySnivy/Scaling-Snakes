@@ -29,6 +29,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://authentik-postgres-backups/
       endpointURL: http://10.0.30.12:9001
+      serverName: postgres-v1
       s3Credentials:
         accessKeyId:
           name: authentik-pg-secret
@@ -43,7 +44,6 @@ spec:
           maxParallel: 8
         destinationPath: s3://authentik-postgres-backups/
         endpointURL: http://10.0.30.12:9001
-        serverName: postgres-v1
         s3Credentials:
           accessKeyId:
             name: authentik-pg-secret
