@@ -8,7 +8,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-volsync
+    - name: volsync
     - name: cluster-apps-cloudnative-pg-cluster-authentik
   path: ./kubernetes/apps/security/authentik/app
   prune: true
@@ -32,7 +32,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cloudnative-pg
-    - name: cluster-apps-local-path-provisioner
+    - name: local-path-provisioner
   path: ./kubernetes/apps/security/authentik/cluster
   prune: true
   sourceRef:
