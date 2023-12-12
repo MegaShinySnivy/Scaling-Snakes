@@ -41,7 +41,6 @@ spec:
     - name: clusterBackup
       barmanObjectStore:
         wal:
-          compression: bzip2
           maxParallel: 8
         destinationPath: s3://authentik-postgres-backups/
         endpointURL: http://10.0.30.12:9001
