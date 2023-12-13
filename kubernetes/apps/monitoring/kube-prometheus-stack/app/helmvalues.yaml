@@ -12,12 +12,16 @@ data:
       enabled: true
       ingress:
         enabled: true
-        annotations:
-          kubernetes.io/ingress.class: internal
+        ingressClassName: internal
+        annotations: {}
         hosts:
           - "alerts.${SECRET_DOMAIN}"
         path: /
         pathType: Prefix
+        tls:
+        - secretName: []
+          hosts:
+          - "alerts.${SECRET_DOMAIN}"
       config:
         global:
           resolve_timeout: 5m
