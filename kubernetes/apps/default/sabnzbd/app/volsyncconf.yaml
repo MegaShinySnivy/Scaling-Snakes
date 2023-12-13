@@ -1,0 +1,49 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: sabnzbd
+  namespace: default
+spec:
+  sourcePVC: sabnzbd-config
+  trigger:
+    schedule: "0 * * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: restic-config-sabnzbd
+    cacheCapacity: 8Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: [ReadWriteOnce]
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: csi-ceph-blockpool
+    accessModes: [ReadWriteOnce]
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 5
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: "sabnzbd-config-dst"
+  namespace: default
+  # dafaq?
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: restic-config-sabnzbd
+    copyMethod: Snapshot # must be Snapshot
+    cacheCapacity: 8Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: [ReadWriteOnce]
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: csi-ceph-blockpool
+    accessModes: [ReadWriteOnce]
+    capacity: 8Gi

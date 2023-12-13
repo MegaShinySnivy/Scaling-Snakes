@@ -1,0 +1,87 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: readarr
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      # -- image repository
+      repository: ghcr.io/onedr0p/readarr-develop
+      # @default -- chart.appVersion
+      tag: 0.3.10.2287
+      # -- image pull policy
+      pullPolicy: IfNotPresent
+    env:
+      TZ: America/Chicago
+      READARR__INSTANCE_NAME: readarr
+    envFrom:
+      - secretRef:
+          name: readarr-secret
+    service:
+      main:
+        enabled: true
+        ports:
+          http:
+            port: &readarr-port 8787
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        annotations:
+          hajimari.io/icon: mdi:bookshelf
+        hosts:
+          - host: &readarr-host "readarr.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: *readarr-port
+        tls:
+          - hosts:
+              - *readarr-host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: readarr-config
+        retain: true
+      media:
+        enabled: true
+        mountPath: /media
+        existingClaim: media
+        retain: true
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+      supplementalGroups: [1000]
+    resources:
+      requests:
+        cpu: 10m
+        memory: 250Mi
+      limits:
+        memory: 2000Mi

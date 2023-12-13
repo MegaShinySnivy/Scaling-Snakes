@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: komga-config
+  namespace: default
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: csi-ceph-blockpool
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: "komga-config-dst"
+  resources:
+    requests:
+      storage: 32Gi

@@ -1,0 +1,89 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: sabnzbd
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      # -- image repository
+      repository: ghcr.io/onedr0p/sabnzbd
+      # @default -- chart.appVersion
+      tag: 4.1.0@sha256:1c1650511f96108e81d677abe8a2e491507caa023fdc5c2bfc99df087634c9f3
+      # -- image pull policy
+      pullPolicy: IfNotPresent
+    env:
+      TZ: America/Chicago
+      SABNZBD__HOST_WHITELIST_ENTRIES: >-
+        sabnzbd, sabnzbd.default, sabnzbd.default.svc, sabnzbd.default.svc.cluster, sabnzbd.default.svc.cluster.local, sabnzbd.${SECRET_DOMAIN}
+    envFrom:
+      - secretRef:
+          name: sabnzbd-secret
+    service:
+      main:
+        enabled: true
+        ports:
+          http:
+            port: &sabnzbd-port 8080
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        annotations:
+          hajimari.io/icon: mdi:download
+        hosts:
+          - host: &sabnzbd-host "sabnzbd.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: *sabnzbd-port
+        tls:
+          - hosts:
+              - *sabnzbd-host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: sabnzbd-config
+        retain: true
+      downloads:
+        enabled: true
+        mountPath: /media
+        existingClaim: media
+        retain: true
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+      supplementalGroups: [1000]
+    resources:
+      requests:
+        cpu: 10m
+        memory: 250Mi
+      limits:
+        memory: 8000Mi

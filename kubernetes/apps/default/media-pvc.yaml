@@ -1,0 +1,41 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: media
+provisioner: nfs
+parameters:
+  archiveOnDelete: "false"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: media
+spec:
+  storageClassName: media
+  capacity:
+    storage: 1Mi # Size does not matter
+  accessModes: ["ReadWriteMany"]
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: 10.0.30.12
+    path: /mnt/THICCBOI1/K8s-NFS/media
+  mountOptions:
+    - nfsvers=3
+    - hard
+    - noatime
+    - rw
+    - user
+    - nolock
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media
+  namespace: default
+spec:
+  accessModes: ["ReadWriteMany"]
+  storageClassName: media
+  resources:
+    requests:
+      storage: 1Mi # Size does not matter

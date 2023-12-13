@@ -1,0 +1,49 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: reminderbot
+  namespace: default
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      type: cronjob
+      cronjob:
+        schedule: "0 15 15 * *"
+        ttlSecondsAfterFinished: 86400
+    restartPolicy: OnFailure
+    image:
+      repository: ghcr.io/megashinysnivy/reminderbot
+      tag: latest@sha256:9b273a373a33debb4c3b8d86b44e77c51546f11cec8851a0b7756dd8a2679d98
+    envFrom:
+      - secretRef:
+          name: bot-token
+      - secretRef:
+          name: channel-id
+      - secretRef:
+          name: message
+    service:
+      main:
+        enabled: false
+    persistence:
+      config:
+        enabled: false

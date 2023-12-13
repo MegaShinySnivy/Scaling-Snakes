@@ -1,0 +1,43 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: komga
+  namespace: default
+spec:
+  sourcePVC: komga-config
+  trigger:
+    schedule: "0 0 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 10
+    repository: restic-config-komga
+    cacheCapacity: 32Gi
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: csi-ceph-blockpool
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      daily: 10
+      within: 3d
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: "komga-config-dst"
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: restic-config-komga
+    copyMethod: Snapshot # must be Snapshot
+    cacheCapacity: 32Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: [ReadWriteOnce]
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: csi-ceph-blockpool
+    accessModes: [ReadWriteOnce]
+    capacity: 32Gi

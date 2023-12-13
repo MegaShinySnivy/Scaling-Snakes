@@ -1,0 +1,98 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: jellyfin
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: jellyfin/jellyfin
+      tag: latest@sha256:095e6d410d1d27b17cc4a961a9bab9fab5ffce6e49389d8ec685f65ab5538525
+    env:
+      TZ: America/Chicago
+      JELLYFIN_PublishedServerUrl: https://jellyfin.${SECRET_DOMAIN}
+    service:
+      main:
+        ports:
+          http:
+            port: &jellyfin-port 8096
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /health
+            port: *jellyfin-port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          hajimari.io/icon: mdi:jellyfish
+        hosts:
+          - host: &host "jellyfin.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: jellyfin-config
+        retain: true
+        mountPath: /config
+      plugins:
+        enabled: true
+        existingClaim: jellyfin-plugins
+        retain: false
+        mountPath: /var/lib/jellyfin/plugins
+      media:
+        enabled: true
+        existingClaim: media
+        retain: true
+        mountPath: /media
+      cache:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+        mountPath: /config/cache
+    resources:
+      requests:
+        cpu: 100m
+        memory: 2000Mi
