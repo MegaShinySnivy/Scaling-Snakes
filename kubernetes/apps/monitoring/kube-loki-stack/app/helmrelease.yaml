@@ -29,9 +29,14 @@ spec:
         name: grafana
         namespace: flux-system
       interval: 5m
+  values:
     loki:
       enabled: true
       isDefault: false
+      # persistence:
+      #   enabled: true
+      #   storageClassName: local-path
+      #   size: 5Gi
       rbac:
         pspEnabled: false
       serviceMonitor:
