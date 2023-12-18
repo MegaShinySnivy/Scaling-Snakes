@@ -32,7 +32,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/cbc02009/komga
-      tag: 1.9.0@sha256:067762d1cf99f244580e1d705af784d27459923f291bfb04657ecda229efa224
+      tag: 1.9.2@sha256:41314a854372e429ef059d7932eb6b80d88cd5ffd5d9370ed2e303acaf854549
     env:
       TZ: America/Chicago
       KOMGA_CONFIGDIR: "/config"
