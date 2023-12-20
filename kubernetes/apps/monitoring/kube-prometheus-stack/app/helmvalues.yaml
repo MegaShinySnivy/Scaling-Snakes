@@ -157,7 +157,7 @@ data:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: local-path
+              storageClassName: csi-ceph-blockpool
               resources:
                 requests:
                   storage: 10Gi
