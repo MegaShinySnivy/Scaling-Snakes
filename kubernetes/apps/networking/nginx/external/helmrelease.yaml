@@ -75,7 +75,7 @@ spec:
               values: ["external"]
       config:
         server-snippet: |
-          resolver local=on ipv6=off
+          resolver local=on ipv6=off;
         plugins: "crowdsec"
         lua-shared-dicts: "crowdsec_cache: 50m"
         client-body-buffer-size: 100M
