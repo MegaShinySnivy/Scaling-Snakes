@@ -57,7 +57,7 @@ spec:
         - name: crowdsec-bouncer-plugin
           mountPath: /etc/nginx/lua/plugins/crowdsec
           subPath: crowdsec
-      replicaCount: 1
+      replicaCount: 3
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "external.${SECRET_DOMAIN}"
@@ -81,6 +81,7 @@ spec:
         client-body-buffer-size: 100M
         client-body-timeout: 120
         client-header-timeout: 120
+        custom-http-errors: 400,401,403,404,500,502,503,504
         enable-brotli: "true"
         enable-real-ip: "true"
         hide-headers: Server,X-Powered-By
