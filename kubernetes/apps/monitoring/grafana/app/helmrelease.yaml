@@ -168,6 +168,6 @@ spec:
             - *host
     persistence:
       enabled: true
-      storageClassName: csi-ceph-blockpool
+      storageClassName: local-path
     testFramework:
       enabled: false
