@@ -1,55 +1,51 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.raspbernetes.com/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: loki-stack
+  name: kube-loki-stack
   namespace: monitoring
 spec:
-  dependsOn:
-    - name: kube-prometheus-stack
-      namespace: monitoring
   interval: 5m
-  install:
-    timeout: 15m
-    remediation:
-      retries: 5
-  upgrade:
-    timeout: 15m
-    remediation:
-      retries: 5
-      remediateLastFailure: true
-    cleanupOnFail: true
   chart:
     spec:
-      # renovate: registryUrl=https://grafana.github.io/helm-charts
       chart: loki-stack
       version: 2.9.11
       sourceRef:
         kind: HelmRepository
-        name: grafana
+        name: grafana-charts
         namespace: flux-system
-      interval: 5m
+      interval: 10m
+  install:
+    timeout: 10m
+    replace: true
+    crds: CreateReplace
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      remediateLastFailure: true
+      retries: 3
+      strategy: rollback
+    cleanupOnFail: true
+    crds: CreateReplace
+  test:
+    enable: true
+  rollback:
+    recreate: true
+    force: true
+    cleanupOnFail: true
+  uninstall:
+    keepHistory: false
+  maxHistory: 3
   values:
     loki:
       enabled: true
-      isDefault: false
-      persistence:
-        enabled: true
-        storageClassName: csi-ceph-blockpool
-        size: 5Gi
       rbac:
         pspEnabled: false
       serviceMonitor:
         enabled: true
-        additionalLabels:
-          app.kubernetes.io/part-of: kube-prometheus-stack
-      auth_enabled: false
-      config:
-        chunk_store_config:
-          max_look_back_period: 0s
-        table_manager:
-          retention_deletes_enabled: true
-          retention_period: 12h
     promtail:
       enabled: true
       serviceMonitor:
@@ -59,4 +55,6 @@ spec:
     grafana:
       enabled: false
     prometheus:
+      enabled: false
+    test_pod:
       enabled: false
