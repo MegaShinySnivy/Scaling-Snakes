@@ -29,6 +29,8 @@ spec:
   values:
     loki:
       enabled: true
+      image:
+        tag: v2.8.7
       isDefault: false
       persistence:
         enabled: true
