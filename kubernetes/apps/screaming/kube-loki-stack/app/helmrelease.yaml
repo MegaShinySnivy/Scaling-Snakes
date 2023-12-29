@@ -30,7 +30,7 @@ spec:
     loki:
       enabled: true
       image:
-        tag: v2.8.7
+        tag: 2.8.7
       isDefault: false
       persistence:
         enabled: true
