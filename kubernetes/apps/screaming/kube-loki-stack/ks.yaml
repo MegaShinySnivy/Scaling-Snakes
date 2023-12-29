@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-kube-loki-stack
+  name: cluster-apps-kube-loki-stack-test
   namespace: flux-system
 spec:
   path: ./kubernetes/apps/screaming/kube-loki-stack/app
