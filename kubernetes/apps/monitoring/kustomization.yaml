@@ -8,3 +8,4 @@ resources:
   - ./kubernetes-dashboard/ks.yaml
   - ./alertmanager-discord/ks.yaml
   # - ./kube-loki-stack/ks.yaml
+  # ....
