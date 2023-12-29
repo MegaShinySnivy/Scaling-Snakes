@@ -5,7 +5,7 @@ metadata:
   name: &app grafana-test
   namespace: flux-system
 spec:
-  targetNamespace: monitoring
+  targetNamespace: screaming
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
