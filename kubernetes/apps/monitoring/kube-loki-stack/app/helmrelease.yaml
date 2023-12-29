@@ -1,60 +1,57 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.raspbernetes.com/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: loki-stack
-  namespace: observability
+  namespace: monitoring
 spec:
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: monitoring
   interval: 5m
+  install:
+    timeout: 15m
+    remediation:
+      retries: 5
+  upgrade:
+    timeout: 15m
+    remediation:
+      retries: 5
+      remediateLastFailure: true
+    cleanupOnFail: true
   chart:
     spec:
+      # renovate: registryUrl=https://grafana.github.io/helm-charts
       chart: loki-stack
       version: 2.9.11
       sourceRef:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      interval: 10m
-  install:
-    timeout: 10m
-    replace: true
-    crds: CreateReplace
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    remediation:
-      remediateLastFailure: true
-      retries: 3
-      strategy: rollback
-    cleanupOnFail: true
-    crds: CreateReplace
-  test:
-    enable: true
-  rollback:
-    recreate: true
-    force: true
-    cleanupOnFail: true
-  uninstall:
-    keepHistory: false
-  maxHistory: 3
+      interval: 5m
   values:
     loki:
       enabled: true
-      rbac:
-        pspEnabled: false
+      isDefault: false
+      persistence:
+        enabled: true
+        existingClaim: pvc-loki-stack
+      config:
+        ## important: limit
+        limits_config:
+          split_queries_by_interval: 0
+        table_manager:
+          retention_deletes_enabled: true
+          retention_period: 2d
+      query_scheduler:
+        max_outstanding_requests_per_tenant: 10000
       serviceMonitor:
         enabled: true
     promtail:
       enabled: true
       serviceMonitor:
         enabled: true
-    fluent-bit:
-      enabled: false
     grafana:
       enabled: false
     prometheus:
-      enabled: false
-    test_pod:
       enabled: false
