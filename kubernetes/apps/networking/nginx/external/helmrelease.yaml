@@ -42,7 +42,7 @@ spec:
             - name: API_URL
               value: "http://crowdsec-service.security.svc.cluster.local:8080" # crowdsec lapi service-name
             - name: API_KEY
-              value: "${CROWDSEC_INGRESS_API_KEY}"
+              value: "${INGRESS_API_KEY}"
             - name: BOUNCER_CONFIG
               value: "/crowdsec/crowdsec-bouncer.conf"
             - name: BAN_TEMPLATE_PATH
