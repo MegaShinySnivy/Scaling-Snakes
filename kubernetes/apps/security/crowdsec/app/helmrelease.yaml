@@ -69,7 +69,7 @@ spec:
     lapi:
       env:
         - name: ENROLL_KEY
-          value: $CROWDSEC_INGRESS_API_KEY
+          value: ${CROWDSEC_INGRESS_API_KEY}
       dashboard:
         enabled: false
       persistentVolume:
