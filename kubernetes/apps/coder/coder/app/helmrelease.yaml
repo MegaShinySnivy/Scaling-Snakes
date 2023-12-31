@@ -36,7 +36,7 @@ spec:
       #
       # Please keep in mind that you should not set `CODER_ADDRESS`,
       # `CODER_TLS_ENABLE`, `CODER_TLS_CERT_FILE` or `CODER_TLS_KEY_FILE` as
-      # they are already set by the Helm chart and will cause conflicts.
+      # they are already set by the Helm chart and will cause conflicts.v
       env:
         - name: CODER_PG_CONNECTION_URL
           valueFrom:
@@ -46,7 +46,7 @@ spec:
         # (Optional) For production deployments the access URL should be set.
         # If you're just trying Coder, access the dashboard via the service IP.
         - name: CODER_ACCESS_URL
-          value: "https://coder.${EXTERNAL_DOMAIN}"
+          value: "https://coder.${SECRET_DOMAIN}"
       serviceAccount:
         enableDeployments: true
       service:
@@ -54,4 +54,4 @@ spec:
       ingress:
         enable: true
         className: internal
-        host: &host 'coder.${EXTERNAL_DOMAIN}'
+        host: &host 'coder.${SECRET_DOMAIN}'
