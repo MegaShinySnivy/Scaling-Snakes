@@ -54,4 +54,4 @@ spec:
       ingress:
         enable: true
         className: internal
-        host: &host 'coder.${SECRET_DOMAIN}'
+        host: coder.${SECRET_DOMAIN}
