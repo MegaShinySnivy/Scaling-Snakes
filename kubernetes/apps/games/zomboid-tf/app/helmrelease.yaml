@@ -73,7 +73,7 @@ spec:
       workshop:
         enabled: true
         type: pvc
-        mountPath: /home/steam/pz-dedicated/
+        mountPath: /home/steam/pz-dedicated/steamapps/workshop
         retain: true
         storageClass: csi-ceph-blockpool
         size: 32Gi
