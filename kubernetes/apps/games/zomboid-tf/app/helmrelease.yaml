@@ -70,3 +70,11 @@ spec:
         existingClaim: zomboid-data
         retain: true
         mountPath: /home/steam/Zomboid
+      workshop:
+        enabled: true
+        type: pvc
+        mountPath: /home/steam/pz-dedicated/
+        retain: true
+        storageClass: csi-ceph-blockpool
+        size: 32Gi
+        accessMode: ReadWriteOnce
