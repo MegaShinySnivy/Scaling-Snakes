@@ -56,17 +56,11 @@ spec:
             port: *zomboid-host
     probes:
       liveness:
-        enabled: true
-        custom: true
-        type: UDP
+        enabled: false
       readiness:
-        enabled: true
-        custom: true
-        type: UDP
+        enabled: false
       startup:
-        enabled: true
-        custom: true
-        type: UDP
+        enabled: false
     ingress:
       main:
         enabled: false
