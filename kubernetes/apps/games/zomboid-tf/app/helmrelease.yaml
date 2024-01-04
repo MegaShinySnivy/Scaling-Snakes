@@ -48,7 +48,7 @@ spec:
           name: admin-secret
     service:
       main:
-        type: loadBalancer
+        type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: "10.0.10.150"
         ports:
