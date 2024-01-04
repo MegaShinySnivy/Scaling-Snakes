@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: zomboid-tf
+  namespace: games
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: danixu86/project-zomboid-dedicated-server
+      tag: latest@sha256:47e728b4835078c4abffa44b626061ebdabc1ce806d30a96858ec5af7a1c8f19
+    env:
+      TZ: America/Chicago
+      CACHEDIR: /home/steam/Zomboid
+      MEMORY: 8096m
+      MODFOLDERS: workshop,steam,mods
+      PORTS: &zomboid-host 16261
+      SERVERNAME: furries-in-hell
+      SERVERPRESET: Survivor
+      WORKSHOP_IDS: 3097650043;3106149504;2875848298;3028261329;2907683021;3073807209;2905027525;2932632173;2894247807;2423906082;2256623447;2492565135;2892563252;2623855083;2050264961;2694448564;3038925945;2987177652;2091564445;2896041179;2725216703;2279084780;2972287975;2947008195;2840805724;2366717227;2787291513;2988491347;2977607164;2648152698;2618724647;2619072426;710542108;2855773771;2954471711;3025679944;3052668642;2432621382;2379601046;2990322197;2779902452;2296517419;2683041078;2732095551;2709402214;3036450298;3038108150;2478768005;3038476940;3038100079;3043616998;3037988451;3037990730;2812491628;2678430672;2951270166;3033301901;2714477061;2961722002;3021063078;2957932451;2965158268;2926691844;2956046897;2952327208;2688809268;2853974107;2616986064;2927691080;2584112711;3015710138;3000848183;2072147750;2907607479;2942762545;3020000656;3020524923;2901962885;2766834021;2903771337;2012990668;2760742937;2544353492;2313387159;2071347174;2717677231;2944344655;2650547917;3004111200;2847184718;2529746725;2686624983;3022666435;2048411289;2942815535;2704980483;2940354599;2822286426;2613146550;2707957711;2912999938;2648779556;2392709985;2487022075;2975848784;2857584360;2962917385;2890748284;2950608437;2717963127;2903127760;2933596798;2690908199;2978007916;2850135071;2584991527;2585740711;2588598892;3015577318;2807001835;2781774668;2725360009;2827283808;2966972794;2982578301;2934987146;2921417999;2986277840;2981978017;2893930681;2923638030;2169435993;2857842616;2908013174;3084003901;2685168362;2956146279;2684285534;3044807092;2704811006;3066276504;3057692890;3046131960;3034952726
+      MOD_IDS: BB_WhereAmI;BB_FreeHotwiring;BB_CommonSense;BB_FirstAidOverhaul;BB_FirstAidOverhaul_Alt;Insurgent;InsurgentBRITAWEAPONS;InsurgentVFE;InsurgentFIREARMSB41;InsurgentEXMILITARY;AnthroAccessories;CanRepairDoors;BetterContainers;STR_AGU;BCGTools;firearmmod;firearmmodbspatch;Max;MaDZombieLoot;STRBS;STEVLFN;STEVRN;STRNPC;STR;STRSJ;ModManager;BB_IncendiaryAmmo;TraitTagFramework;TraitTagFramework;Swatpack;Swatpack;errorMagnifier;ModManagerServer;PLLoot;PLLootF;PLLootG;WakeThemUp;BP3D;SimpleOverhaulTraitsAndOccupations;SwapIt;CraftHelperContinued;BB_Bicycles;MultiHitLimiter;Improved_Blood_Ffects;Max_Rework;PLLoot_Rework;Swatpack_Rework;TheStar;PlayerTraps;FB41;PreventativeMaintenance;AnthroTraits;SimpleOverhaulMeleeWeapons;SimpleOverhaulMeleeWeapons_EasySpearAttachments;BCGRareWeapons;hf_point_blank;FreezingTime;DressingTime;AwesomeTime;BSSFAwesomeT;BSSFBeautifyingT;BSSFBuildingT;BSSFCookingT;BSSFDrinkingT;BSSFFarmingT;BSSFForagingT;BSSFLearningT;BSSFRelaxingT;LitSortOGSN_addon_base;LitSortOGSN_addon_chocolate;LitSortOGSN_addon_gold;LitSortOGSN_addon_names;LitSortOGSN_addon_rice;LitSortOGSN_addon_soulfilcher;LitSortOGSN_addon_morevaccine;ImprovedForagingTooltip;ItemStories_Zupercarts;TMC_Trolley;ItemStories_ZupercartsTrolleys;ItemStories_PropaneTanksInGarages;ItemStories_PoolBallsCues;ItemStories_RoomLoot;ItemStories_Framework;ItemStories_PillowsOnBeds;MoreLootSettings;TailorOverhaul;TreesHaveLoot;LootTablesFixed;teacupfix;TileFixes;TileFixes_ParkingGateNoStop;pipebombmodelfix;FixCapacityOverlap;FixDoubleWaterConsume;IndustrialOvenFix;daikonUdderlySandboxSyncFix;PanopticonMiscTweaks;PanopticonMiscTweaksVehicles;fridgesoff;fuelsideindicator;ForagingZ;FasterHoodOpening;AnthroShowMeThoseBandages;piesfirstaidoverhaul;piesfirstaidoverhaul;VFFogsn;VFFogsn_herbsNoRot;SimpleFuelStorage;daikonUniversalRecipes;ITCP;ItemConditionIndicator;REORDER_CONTAINERS;ReorderDuplicatesByCondition;REORDER_THE_HOTBAR;ReorganizedInfoScreen;WorkingMasks;P4HasBeenRead;BetterSortCC;LitSortOGSN_gold;LitSortOGSN_diamond;LitSortOGSN_readOnePage;LitSortOGSN;LitSortOGSN_chocolate;LitSortOGSN_rice;InfectionThreshold;Replace;manageContainers;ZombiesHearYourMicrophone;ProximityInventory;EasyConfigChucked;SleepWithFriends;3D_bandolier;ducksNPYG;FitnessIsALifestyle;FWOFitnessWorkoutOverhaul;FWOBenchPress;RV_Interior_MP;RV_Interior_Vanilla;truemusic;TrueActionsDancingVHS;TrueActionsDancingVHS_MAG;TrueActions4Talking;TrueActionsDancing;tsarslib;TMC_TrueActions;PictureThis;PictureThisNoOverlay;ImmersiveOverlaysRetexture;ImmersiveOverlaysRetextureLessIntrusiveVersion;RealTimeSleep;FoodPreservationPlus;EntertainYourself;ItemWeightRB;EssentialCrafting;CirvulpPack;CirvulpPack;CatsReadMod;BB_BreakingIn;BB_Utils;AutoSewing;AutoReload;AutoMechanics;autohidehotbar;ADRENALINE_MOD;AFTAA;BoredomTweaks;UltimateXPTweaker;Crepcy;AnthroUngulates;AnthroSurvivors_Scalies_byJusFoNo;XochisMSM;KiloNoodle;FurryMod;XochisCustoms;modoptions;MusicfortheEnd;MusicfortheEndEX;MusicfortheEndSH;ahzclothing;JKGRB;MoreDescriptionForTraits4166;RainCleansBlood;SpnCloth;SpnClothHideFix;BB_StairsAlert;snowiswater;containertags;SuchasadogTemplateMod;SuchasadogTemplateMod;PooltoyZ;OMS
+    envFrom:
+      - secretRef:
+          name: admin-secret
+    service:
+      main:
+        type: loadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: "10.0.10.150"
+        ports:
+          http:
+            port: *zomboid-host
+    ingress:
+      main:
+        enabled: false
+    persistence:
+      config:
+        enabled: true
+        existingClaim: zomboid-data
+        retain: true
+        mountPath: /home/steam/Zomboid
