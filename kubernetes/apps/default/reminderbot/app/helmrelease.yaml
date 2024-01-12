@@ -33,7 +33,7 @@ spec:
     restartPolicy: OnFailure
     image:
       repository: ghcr.io/megashinysnivy/reminderbot
-      tag: latest@sha256:9b273a373a33debb4c3b8d86b44e77c51546f11cec8851a0b7756dd8a2679d98
+      tag: latest@sha256:0a94342c16da6c785c4f46e718893e4c426c36a32fd6bb0dcd5311ffd5e30ee8
     envFrom:
       - secretRef:
           name: bot-token
