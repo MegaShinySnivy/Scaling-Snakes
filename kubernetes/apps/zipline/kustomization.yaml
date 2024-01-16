@@ -7,5 +7,4 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations........
   - ./zipline/ks.yaml
-  - ./minio/ks.yaml
   - ./cluster/ks.yaml
