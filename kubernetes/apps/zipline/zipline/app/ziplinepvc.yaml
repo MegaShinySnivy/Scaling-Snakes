@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: zipline-zipline-nfs
+  namespace: zipline
+spec:
+  accessModes: ["ReadWriteMany"]
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Mi # Size does not matter

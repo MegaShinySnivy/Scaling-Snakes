@@ -1,0 +1,79 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app zipline
+  namespace: zipline
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      interval: 15m
+  values:
+    image:
+      repository: ghcr.io/diced/zipline
+      tag: 3.7.7
+    env:
+      TZ: "America/Chicago"
+      DATASOURCE_TYPE: "local"
+      DATASOURCE_LOCAL_DIRECTORY: "/uploads"
+      CORE_HOST: 0.0.0.0
+      CORE_PORT: 3000
+      CORE_RETURN_HTTPS: true
+      CORE_SECRET:
+        valueFrom:
+          secretKeyRef:
+            name: *app
+            key: CORE_SECRET
+      WEBSITE_TITLE: "Snek's Service Stack"
+      WEBSITE_SHOW_FILES_PER_USER: "false"
+      CORE_DATABASE_URL:
+        valueFrom:
+          secretKeyRef:
+            name: postgres-zipline-app
+            key: uri
+      EXIF_REMOVE_GPS: "true"
+      FEATURES_INVITES: "false"
+      FEATURES_ROBOTS_TXT: "false"
+      FEATURES_USER_REGISTRATION: "false"
+      UPLOADER_ADMIN_LIMIT: 20GB
+      UPLOADER_DEFAULT_FORMAT: "gfycat"
+    service:
+      main:
+        ports:
+          http:
+            port: 3000
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
+          hajimari.io/icon: mdi:upload-network
+          nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+          nginx.ingress.kubernetes.io/custom-http-errors: "400,404,405,409,410,411,412,413,414,415,416,417,418,421,425,431,451,500,501,502,503,504,505,506,510"
+        hosts:
+          - host: &host "zipline.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+    podAnnotations:
+      secret.reloader.stakater.com/reload: *app
+    resources:
+      requests:
+        cpu: 15m
+        memory: 411M
+    persistence:
+      uploads:
+        enabled: true
+        existingClaim: zipline-zipline-nfs
+        retain: true
