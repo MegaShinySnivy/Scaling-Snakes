@@ -60,7 +60,6 @@ spec:
         strategy:
           rollingUpdate:
             unavailable: "1"
-            type: RollingUpdate
       image:
         repository: ghcr.io/immich-app/immich-server
         tag: *appVersion
