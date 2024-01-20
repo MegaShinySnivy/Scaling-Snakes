@@ -57,9 +57,9 @@ spec:
       enabled: true
       controller:
         replicas: 3
-        strategy:
-          rollingUpdate:
-            unavailable: "1"
+        strategy: RollingUpdate
+        rollingUpdate:
+          unavailable: "1"
       image:
         repository: ghcr.io/immich-app/immich-server
         tag: *appVersion
@@ -86,6 +86,7 @@ spec:
     microservices:
       enabled: true
       controller:
+        strategy: RollingUpdate
         replicas: 3
         rollingUpdate:
           unavailable: "1"
