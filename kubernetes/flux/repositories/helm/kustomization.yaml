@@ -26,3 +26,4 @@ resources:
   - ./kubernetes-sigs-descheduler-charts.yaml
   - ./rook-ceph.yaml
   - ./coder.yaml
+  - ./immich.yaml
