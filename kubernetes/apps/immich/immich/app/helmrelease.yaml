@@ -109,21 +109,21 @@ spec:
       DB_HOSTNAME:
         valueFrom:
           secretKeyRef:
-            name: postgres-immich
+            name: postgres-immich-app
             key: host
       DB_USERNAME:
         valueFrom:
           secretKeyRef:
-            name: postgres-immich
+            name: postgres-immich-app
             key: user
       DB_PASSWORD:
         valueFrom:
           secretKeyRef:
-            name: postgres-immich
+            name: postgres-immich-app
             key: password
       DB_URL:
         valueFrom:
           secretKeyRef:
-            name: postgres-immich
+            name: postgres-immich-app
             key: uri
       LOG_LEVEL: verbose
