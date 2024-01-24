@@ -103,7 +103,18 @@ spec:
         limits:
           memory: 1000Mi
     machine-learning:
-      enabled: false
+      enabled: true
+      controller:
+        strategy: RollingUpdate
+        replicas: 3
+        rollingUpdate:
+          unavailable: "1"
+      persistence:
+        geodata-cache:
+          enabled: true
+          size: 8Gi
+          type: emptyDir
+          accessMode: ReadWriteMany
     env:
       DB_DATABASE_NAME: immich
       DB_HOSTNAME:
@@ -127,3 +138,4 @@ spec:
             name: postgres-immich-app
             key: uri
       LOG_LEVEL: verbose
+      IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
