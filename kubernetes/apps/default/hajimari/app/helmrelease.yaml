@@ -41,6 +41,8 @@ spec:
           - monitoring
           - coder
           - security
+          - immich
+          - zipline
     ingress:
       main:
         enabled: true
