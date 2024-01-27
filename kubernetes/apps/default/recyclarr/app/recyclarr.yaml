@@ -7,7 +7,6 @@ radarr:
       type: movie
     quality_profiles:
       - name: Remux + WEB 1080p
-        reset_unmatched_scores: true
     custom_formats:
       # Scores from TRaSH json
       - trash_ids:
@@ -84,7 +83,6 @@ sonarr:
       type: series
     quality_profiles:
       - name: WEB-1080p
-        reset_unmatched_scores: true
     custom_formats:
       # Scores from TRaSH json
       - trash_ids:
@@ -137,7 +135,6 @@ sonarr:
       type: anime
     quality_profiles:
       - name: Remux-1080p - Anime
-        reset_unmatched_scores: true
     custom_formats:
       # Scores from TRaSH json
       - trash_ids:
