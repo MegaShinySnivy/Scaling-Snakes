@@ -62,22 +62,11 @@ spec:
         enabled: true
         existingClaim: bazarr-config
         retain: true
-      tv:
+      media:
         enabled: true
-        mountPath: /tv
-        existingClaim: sonarr-tv
+        mountPath: /media
+        existingClaim: media
         retain: true
-      movies:
-        enabled: true
-        mountPath: /movies
-        existingClaim: radarr-movies
-        retain: true
-      anime:
-        enabled: true
-        mountPath: /anime
-        existingClaim: sonarr-anime
-        retain: true
-    resources:
       requests:
         cpu: 10m
         memory: 250Mi
