@@ -8,4 +8,4 @@ roleRef:
   name: cluster-admin
 subjects:
 - kind: Group
-  name: oidc:admin-kube-apiserver
+  name: admin-kube-apiserver
