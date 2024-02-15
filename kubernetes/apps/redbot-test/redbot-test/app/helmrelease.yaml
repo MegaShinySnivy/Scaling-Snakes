@@ -36,7 +36,7 @@ spec:
     env:
       TZ: America/Chicago
       NAME: Pineapple
-      PREFIX: "pl."
+      PREFIX: ".pl"
       STORAGE_TYPE: JSON
       DATA_PATH: /data
       CONFIG_PATH: /config
