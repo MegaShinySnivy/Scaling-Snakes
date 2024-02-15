@@ -31,8 +31,8 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: ghcr.io/onedr0p/bazarr
-      tag: 1.4.1@sha256:4a9584435db5881306fa477115363db0ff79a3c70c7f67b5fe0c2e62978252a5
+      repository: "jank.ing/jjgadgets/redbot"
+      tag: "3.5.5@sha256:f2aa73d9de7cb466a37fb92dfd9aa81d8a08db199105bf196f1363df09288102"
     env:
       TZ: America/Chicago
       NAME: Pineapple
@@ -53,6 +53,10 @@ spec:
       config:
         enabled: true
         existingClaim: redbot-test-config
+        retain: true
+      data:
+        enabled: true
+        existingClaim: redbot-test-data
         retain: true
       requests:
         cpu: 10m
