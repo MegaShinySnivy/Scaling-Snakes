@@ -14,3 +14,19 @@ spec:
   resources:
     requests:
       storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redbot-test-data
+  namespace: redbot-test
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: csi-ceph-blockpool
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: "redbot-test-data-dst"
+  resources:
+    requests:
+      storage: 8Gi
