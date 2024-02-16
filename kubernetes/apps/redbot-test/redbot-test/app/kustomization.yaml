@@ -7,3 +7,4 @@ resources:
   - ./redbotsecret.sops.yaml
   - ./volsyncsecret.sops.yaml
   - ./volsyncconf.yaml
+# comment
