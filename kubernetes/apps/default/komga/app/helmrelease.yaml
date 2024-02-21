@@ -1,4 +1,3 @@
----
 # yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
@@ -10,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,63 +26,70 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/cbc02009/komga
-      tag: 1.10.3@sha256:4615b9df1488f88bd220149774e6638fdc9826911f568cbe7fede816812b29d1
-    env:
-      TZ: America/Chicago
-      KOMGA_CONFIGDIR: "/config"
-      SERVER_PORT: &komga-port 8443
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+        containers:
+          main:
+            image:
+              repository: ghcr.io/cbc02009/komga
+              tag: 1.10.3@sha256:4615b9df1488f88bd220149774e6638fdc9826911f568cbe7fede816812b29d1
+            env:
+              TZ: America/Chicago
+              KOMGA_CONFIGDIR: /config
+              SERVER_PORT: &komga-port 8443
+            resources:
+              requests:
+                cpu: 100m
+                memory: 2000Mi
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *komga-port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
     service:
       main:
         ports:
           http:
             port: *komga-port
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /health
-            port: *komga-port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
     ingress:
       main:
         enabled: true
-        ingressClassName: external
         annotations:
           hajimari.io/icon: mdi:book
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
         hosts:
-          - host: &host "komga.${SECRET_DOMAIN}"
+          - host: &host komga.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
+        className: external
     persistence:
       config:
         enabled: true
         existingClaim: komga-config
         retain: true
-        mountPath: /config
+        globalMounts:
+          - path: /config
       books:
         enabled: true
         existingClaim: media
         retain: true
         mountpath: /media
-    resources:
-      requests:
-        cpu: 100m
-        memory: 2000Mi
