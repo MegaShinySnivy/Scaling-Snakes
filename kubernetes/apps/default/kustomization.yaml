@@ -16,5 +16,5 @@ resources:
   - ./reminderbot/ks.yaml
   - ./recyclarr/ks.yaml
   - ./komga/ks.yaml
-  - ./jellyfin/ks.yaml
+  # - ./jellyfin/ks.yaml
   - ./jellyseerr/ks.yaml

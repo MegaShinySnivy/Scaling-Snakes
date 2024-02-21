@@ -1,4 +1,3 @@
----
 # yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
@@ -10,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,72 +26,82 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: jellyfin/jellyfin
-      tag: latest@sha256:095e6d410d1d27b17cc4a961a9bab9fab5ffce6e49389d8ec685f65ab5538525
-    env:
-      TZ: America/Chicago
-      JELLYFIN_PublishedServerUrl: https://jellyfin.${SECRET_DOMAIN}
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+        containers:
+          main:
+            image:
+              repository: jellyfin/jellyfin
+              tag: latest@sha256:095e6d410d1d27b17cc4a961a9bab9fab5ffce6e49389d8ec685f65ab5538525
+            env:
+              TZ: America/Chicago
+              JELLYFIN_PublishedServerUrl: https://jellyfin.${SECRET_DOMAIN}
+            resources:
+              requests:
+                cpu: 100m
+                memory: 2000Mi
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &jellyfin-port 8096
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
     service:
       main:
         ports:
           http:
-            port: &jellyfin-port 8096
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /health
             port: *jellyfin-port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
     ingress:
       main:
         enabled: true
-        ingressClassName: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           hajimari.io/icon: mdi:jellyfish
         hosts:
-          - host: &host "jellyfin.${SECRET_DOMAIN}"
+          - host: &host jellyfin.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
+        className: external
     persistence:
       config:
         enabled: true
         existingClaim: jellyfin-config
         retain: true
-        mountPath: /config
+        globalMounts:
+          - path: /config
       plugins:
         enabled: true
         existingClaim: jellyfin-plugins
         retain: false
-        mountPath: /var/lib/jellyfin/plugins
+        globalMounts:
+          - path: /var/lib/jellyfin/plugins
       media:
         enabled: true
         existingClaim: media
         retain: true
-        mountPath: /media
+        globalMounts:
+          - path: /media
       cache:
         enabled: true
         type: emptyDir
         medium: Memory
-        mountPath: /config/cache
-    resources:
-      requests:
-        cpu: 100m
-        memory: 2000Mi
+        globalMounts:
+          - path: /config/cache
