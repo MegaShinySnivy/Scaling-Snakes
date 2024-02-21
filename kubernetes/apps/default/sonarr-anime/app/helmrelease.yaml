@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -25,22 +25,57 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [1000]
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+        containers:
+          main:
+            image:
       # -- image repository
-      repository: ghcr.io/onedr0p/sonarr-develop
+              repository: ghcr.io/onedr0p/sonarr-develop
       # @default -- chart.appVersion
-      tag: 4.0.1.1131@sha256:dab8a943fb50f161a09a8c2e2e7c17a2e230545c5797fc6893f9363b590028af
+              tag: 
+                4.0.1.1131@sha256:dab8a943fb50f161a09a8c2e2e7c17a2e230545c5797fc6893f9363b590028af
       # -- image pull policy
-      pullPolicy: IfNotPresent
-    env:
-      TZ: America/Chicago
-      SONARR__INSTANCE_NAME: Sonarr-anime
-    envFrom:
-      - secretRef:
-          name: sonarr-secret
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: sonarr-secret
+            env:
+              TZ: America/Chicago
+              SONARR__INSTANCE_NAME: Sonarr-anime
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+              limits:
+                memory: 2000Mi
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - /usr/bin/env
+                      - bash
+                      - -c
+                      - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\>
+                        && while read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo
+                        $C; fi; done < /config/config.xml`
+                    failureThreshold: 5
+                    initialDelaySeconds: 60
+                    periodSeconds: 10
+                    successThreshold: 1
+                    timeoutSeconds: 10
     service:
       main:
         enabled: true
@@ -50,36 +85,20 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
         annotations:
           hajimari.io/icon: mdi:television-classic
         hosts:
-          - host: &sonarr-host "sonarr-anime.${SECRET_DOMAIN}"
+          - host: &sonarr-host sonarr-anime.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
                 service:
-                  port: *sonarr-port
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *sonarr-host
-    probes:
-      liveness:
-        enabled: true
-        custom: true
-        spec:
-          exec:
-            command:
-              - /usr/bin/env
-              - bash
-              - -c
-              - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\> && while
-                read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
-            failureThreshold: 5
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 10
+        className: internal
     persistence:
       config:
         enabled: true
@@ -87,23 +106,13 @@ spec:
         retain: true
       anime:
         enabled: true
-        mountPath: /media
         existingClaim: media
         retain: true
+        globalMounts:
+          - path: /media
       downloads:
         enabled: true
-        mountPath: /downloads-usenet
         existingClaim: sabnzbd-downloads
         retain: true
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups: [1000]
-    resources:
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 2000Mi
+        globalMounts:
+          - path: /downloads-usenet

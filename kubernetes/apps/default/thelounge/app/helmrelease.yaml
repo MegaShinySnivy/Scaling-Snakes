@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -9,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,12 +25,24 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: thelounge/thelounge
-      tag: 4.4.1
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+        containers:
+          main:
+            image:
+              repository: thelounge/thelounge
+              tag: 4.4.1
+            env:
+              TZ: America/Chicago
+              THELOUNGE_HOME: /config
+            resources:
+              requests:
+                cpu: 25m
+                memory: 250Mi
+              limits:
+                memory: 500Mi
     service:
       main:
         ports:
@@ -40,30 +51,22 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
         annotations:
           hajimari.io/icon: mdi:send-circle
         hosts:
-          - host: &thelounge-host "thelounge.${SECRET_DOMAIN}"
+          - host: &thelounge-host thelounge.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
                 service:
-                  port: *thelounge-port
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *thelounge-host
-    env:
-      TZ: "America/Chicago"
-      THELOUNGE_HOME: "/config"
+        className: internal
     persistence:
       config:
         enabled: true
         existingClaim: thelounge-config
         retain: true
-    resources:
-      requests:
-        cpu: 25m
-        memory: 250Mi
-      limits:
-        memory: 500Mi

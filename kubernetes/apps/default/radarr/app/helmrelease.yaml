@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -9,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,22 +25,57 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [1000]
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+        containers:
+          main:
+            image:
       # -- image repository
-      repository: ghcr.io/onedr0p/radarr-develop
+              repository: ghcr.io/onedr0p/radarr-develop
       # @default -- chart.appVersion
-      tag: 5.3.6.8612@sha256:ef3154aaecf3ffa52e68f5109bca912df5f53c36079fa430e29bad791d091cd8
+              tag: 
+                5.3.6.8612@sha256:ef3154aaecf3ffa52e68f5109bca912df5f53c36079fa430e29bad791d091cd8
       # -- image pull policy
-      pullPolicy: IfNotPresent
-    env:
-      TZ: America/Chicago
-      RADARR__INSTANCE_NAME: Radarr
-    envFrom:
-      - secretRef:
-          name: radarr-secret
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: radarr-secret
+            env:
+              TZ: America/Chicago
+              RADARR__INSTANCE_NAME: Radarr
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+              limits:
+                memory: 2000Mi
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - /usr/bin/env
+                      - bash
+                      - -c
+                      - curl --fail localhost:7878/api/v3/system/status?apiKey=`IFS=\>
+                        && while read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo
+                        $C; fi; done < /config/config.xml`
+                  failureThreshold: 10
+                  initialDelaySeconds: 120
+                  periodSeconds: 10
+                  successThreshold: 1
+                  timeoutSeconds: 30
     service:
       main:
         enabled: true
@@ -51,36 +85,20 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
         annotations:
           hajimari.io/icon: mdi:television-classic
         hosts:
-          - host: &radarr-host "radarr.${SECRET_DOMAIN}"
+          - host: &radarr-host radarr.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
                 service:
-                  port: *radarr-port
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *radarr-host
-    probes:
-      liveness:
-        enabled: true
-        custom: true
-        spec:
-          exec:
-            command:
-              - /usr/bin/env
-              - bash
-              - -c
-              - curl --fail localhost:7878/api/v3/system/status?apiKey=`IFS=\> && while
-                read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
-          failureThreshold: 10
-          initialDelaySeconds: 120
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 30
+        className: internal
     persistence:
       config:
         enabled: true
@@ -88,23 +106,13 @@ spec:
         retain: true
       media:
         enabled: true
-        mountPath: /media
         existingClaim: media
         retain: true
+        globalMounts:
+          - path: /media
       downloads:
         enabled: true
-        mountPath: /downloads-usenet
         existingClaim: sabnzbd-downloads
         retain: true
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups: [1000]
-    resources:
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 2000Mi
+        globalMounts:
+          - path: /downloads-usenet

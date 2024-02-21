@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -25,22 +25,38 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [1000]
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+        containers:
+          main:
+            image:
       # -- image repository
-      repository: ghcr.io/onedr0p/readarr-develop
+              repository: ghcr.io/onedr0p/readarr-develop
       # @default -- chart.appVersion
-      tag: 0.3.18.2411
+              tag: 0.3.18.2411
       # -- image pull policy
-      pullPolicy: IfNotPresent
-    env:
-      TZ: America/Chicago
-      READARR__INSTANCE_NAME: readarr
-    envFrom:
-      - secretRef:
-          name: readarr-secret
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: readarr-secret
+            env:
+              TZ: America/Chicago
+              READARR__INSTANCE_NAME: readarr
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+              limits:
+                memory: 2000Mi
     service:
       main:
         enabled: true
@@ -50,19 +66,20 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
         annotations:
           hajimari.io/icon: mdi:bookshelf
         hosts:
-          - host: &readarr-host "readarr.${SECRET_DOMAIN}"
+          - host: &readarr-host readarr.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
                 service:
-                  port: *readarr-port
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *readarr-host
+        className: internal
     persistence:
       config:
         enabled: true
@@ -70,18 +87,7 @@ spec:
         retain: true
       media:
         enabled: true
-        mountPath: /media
         existingClaim: media
         retain: true
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups: [1000]
-    resources:
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 2000Mi
+        globalMounts:
+          - path: /media
