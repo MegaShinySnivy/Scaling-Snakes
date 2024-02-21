@@ -5,4 +5,4 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  # - ./redbot-test/ks.yaml
+  - ./redbot-test/ks.yaml
