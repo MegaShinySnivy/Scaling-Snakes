@@ -77,7 +77,7 @@ spec:
           - path: /home/steam/Zomboid
       workshop:
         enabled: true
-        type: pvc
+        type: persistentVolumeClaim
         retain: true
         storageClass: csi-ceph-blockpool
         size: 32Gi
