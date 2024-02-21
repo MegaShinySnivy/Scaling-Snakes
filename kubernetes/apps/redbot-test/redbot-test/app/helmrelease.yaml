@@ -1,4 +1,3 @@
----
 # yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
@@ -10,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,22 +26,32 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: "jank.ing/jjgadgets/redbot"
-      tag: "3.5.5@sha256:07da705d7113fe2c7e7f48aa5f2d5105fbf23c01b27b2808f457898c19636a00"
-    env:
-      TZ: America/Chicago
-      NAME: Pineapple
-      PREFIX: "pl."
-      STORAGE_TYPE: JSON
-      DATA_PATH: /data
-      CONFIG_PATH: /config
-    envFrom:
-      - secretRef:
-          name: redbot-test-secret
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [1000]
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+        containers:
+          main:
+            image:
+              repository: jank.ing/jjgadgets/redbot
+              tag: 3.5.5@sha256:07da705d7113fe2c7e7f48aa5f2d5105fbf23c01b27b2808f457898c19636a00
+            envFrom:
+              - secretRef:
+                  name: redbot-test-secret
+            env:
+              TZ: America/Chicago
+              NAME: Pineapple
+              PREFIX: pl.
+              STORAGE_TYPE: JSON
+              DATA_PATH: /data
+              CONFIG_PATH: /config
     service:
       main:
         enabled: false
@@ -63,9 +72,3 @@ spec:
         memory: 250Mi
       limits:
         memory: 2000Mi
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups: [1000]
