@@ -12,7 +12,7 @@ resources:
   - ./sabnzbd/ks.yaml
   - ./readarr/ks.yaml
   - ./prowlarr/ks.yaml
-  - ./bazarr/ks.yaml
+  # - ./bazarr/ks.yaml
   - ./reminderbot/ks.yaml
   - ./recyclarr/ks.yaml
   - ./komga/ks.yaml
