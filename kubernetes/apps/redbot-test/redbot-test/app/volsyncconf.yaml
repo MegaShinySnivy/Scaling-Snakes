@@ -85,7 +85,7 @@ spec:
   trigger:
     manual: restore-once
   restic:
-    repository: restic-config-redbot-test
+    repository: restic-data-redbot-test
     copyMethod: Snapshot # must be Snapshot
     cacheCapacity: 8Gi
     cacheStorageClassName: local-path
