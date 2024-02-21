@@ -67,8 +67,3 @@ spec:
         enabled: true
         existingClaim: redbot-test-data
         retain: true
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 2000Mi

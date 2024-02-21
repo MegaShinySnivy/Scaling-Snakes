@@ -3,7 +3,7 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: redbot-test
+  name: redbot-test-config
   namespace: redbot-test
 spec:
   sourcePVC: redbot-test-config
