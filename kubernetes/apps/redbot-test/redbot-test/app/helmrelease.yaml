@@ -42,6 +42,10 @@ spec:
             image:
               repository: jank.ing/jjgadgets/redbot
               tag: 3.5.5@sha256:07da705d7113fe2c7e7f48aa5f2d5105fbf23c01b27b2808f457898c19636a00
+            args: [
+              "--init",
+              "--debug"
+            ]
             envFrom:
               - secretRef:
                   name: redbot-test-secret
