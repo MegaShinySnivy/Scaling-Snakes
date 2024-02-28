@@ -5,5 +5,5 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Post Flux
-  - ./coder/ks.yaml
+  # - ./coder/ks.yaml
   - ./cluster/ks.yaml
