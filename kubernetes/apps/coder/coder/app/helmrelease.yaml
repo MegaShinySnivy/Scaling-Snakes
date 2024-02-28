@@ -47,6 +47,31 @@ spec:
         # If you're just trying Coder, access the dashboard via the service IP.
         - name: CODER_ACCESS_URL
           value: "https://coder.${SECRET_DOMAIN}"
+        - name: CODER_OIDC_ISSUER_URL
+          value: "https://authentik.${SECRET_DOMAIN}"
+        - name: CODER_OIDC_SIGN_IN_TEXT
+          value: "Sign in with Authentik"
+        - name: CODER_OIDC_ICON_URL
+          value:
+        - name: CODER_OIDC_SCOPES
+          value: openid,profile,email,groups
+        - name: CODER_OIDC_GROUP_FIELD
+          value: groups
+        - name: CODER_OIDC_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: coder-secret
+              key: CODER_OIDC_CLIENT_ID
+        - name: CODER_OIDC_CLIENT_SECRET
+          valueFrom:
+            secretRef:
+              name: coder-secret
+              key: CODER_OIDC_CLIENT_SECRET
+        - name: CODER_OIDC_ALLOWED_GROUPS
+          valueFrom:
+            secretKeyRef:
+              name: coder-secret
+              key: CODER_OIDC_ALLOWED_GROUPS
       serviceAccount:
         enableDeployments: true
       service:
