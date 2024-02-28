@@ -52,7 +52,7 @@ spec:
         - name: CODER_OIDC_SIGN_IN_TEXT
           value: "Sign in with Authentik"
         - name: CODER_OIDC_ICON_URL
-          value:
+          value: https://camo.githubusercontent.com/f068956b02827bfce3b652ac3cbbe563ca05294aa149f73d1049059624445b37/68747470733a2f2f676f61757468656e74696b2e696f2f696d672f69636f6e5f746f705f6272616e645f636f6c6f75722e737667
         - name: CODER_OIDC_SCOPES
           value: openid,profile,email,groups
         - name: CODER_OIDC_GROUP_FIELD
