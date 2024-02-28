@@ -48,7 +48,7 @@ spec:
         - name: CODER_ACCESS_URL
           value: "https://coder.${SECRET_DOMAIN}"
         - name: CODER_OIDC_ISSUER_URL
-          value: "https://authentik.${SECRET_DOMAIN}"
+          value: "https://authentik.{SECRET_DOMAIN}/application/o/coder/"
         - name: CODER_OIDC_SIGN_IN_TEXT
           value: "Sign in with Authentik"
         - name: CODER_OIDC_ICON_URL
