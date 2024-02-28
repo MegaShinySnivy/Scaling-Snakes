@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./helmrelease.yaml
+  - ./codersecret.sops.yaml
