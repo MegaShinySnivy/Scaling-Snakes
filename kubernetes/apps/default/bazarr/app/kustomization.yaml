@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: default
 resources:
   - ./bazarrpvc.yaml
-  - ./helmrelease.yaml
+  # - ./helmrelease.yaml
   - ./bazarrsecret.sops.yaml
   - ./volsyncconf.yaml
   - ./volsyncsecret.sops.yaml
