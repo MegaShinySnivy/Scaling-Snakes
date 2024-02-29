@@ -10,14 +10,14 @@ spec:
     initdb:
       database: immich
   instances: 3
-  imageName: ghcr.io/bo0tzz/cnpgvecto.rs:14.10-v0.1.11
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:14.11
   primaryUpdateStrategy: unsupervised
   storage:
     size: 8Gi
     storageClass: local-path
   postgresql:
     shared_preload_libraries:
-    - "vectors.so"
+      - "vectors.so"
     parameters:
       max_connections: "600"
       shared_buffers: 512MB
