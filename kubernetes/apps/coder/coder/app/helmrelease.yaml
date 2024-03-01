@@ -28,7 +28,7 @@ spec:
     keepHistory: false
   values:
     coder:
-      replicaCount: 3
+      replicaCount: 1
       # You can specify any environment variables you'd like to pass to Coder
       # here. Coder consumes environment variables listed in
       # `coder server --help`, and these environment variables are also passed
