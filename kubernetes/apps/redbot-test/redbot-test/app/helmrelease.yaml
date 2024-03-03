@@ -43,7 +43,6 @@ spec:
               repository: jank.ing/jjgadgets/redbot
               tag: 3.5.5@sha256:cfb82d6275f4e11a89d3a6d4cbf938f95e89554790fbc957ec2ef05c2714af50
             args: [
-              "--init",
               "--debug"
             ]
             envFrom:
