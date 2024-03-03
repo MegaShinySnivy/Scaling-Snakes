@@ -45,7 +45,7 @@ data:
         templates:
           - /etc/alertmanager/config/*.tmpl
       alertmanagerSpec:
-        replicas: 2
+        replicas: 3
         storage:
           volumeClaimTemplate:
             spec:
