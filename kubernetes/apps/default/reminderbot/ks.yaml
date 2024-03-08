@@ -6,7 +6,7 @@ metadata:
   name: cluster-apps-reminderbot-general
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/reminderbot/reminderbot-general
+  path: ./kubernetes/apps/default/reminderbot/reminder-general
   prune: true
   sourceRef:
     kind: GitRepository
@@ -27,7 +27,7 @@ metadata:
   name: cluster-apps-reminderbot-clear-pre
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/reminderbot/reminderbot-clear-pre
+  path: ./kubernetes/apps/default/reminderbot/reminder-clear-pre
   prune: true
   sourceRef:
     kind: GitRepository
@@ -48,7 +48,7 @@ metadata:
   name: cluster-apps-reminderbot-clear
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/reminderbot/reminderbot-clear
+  path: ./kubernetes/apps/default/reminderbot/reminder-clear
   prune: true
   sourceRef:
     kind: GitRepository
