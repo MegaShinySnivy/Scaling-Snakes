@@ -66,6 +66,7 @@ spec:
       config:
         enabled: true
         existingClaim: bazarr-config
+        accessMode: ReadWriteOnce
         retain: true
       media:
         enabled: true
@@ -73,8 +74,3 @@ spec:
         retain: true
         globalMounts:
           - path: /media
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 2000Mi
