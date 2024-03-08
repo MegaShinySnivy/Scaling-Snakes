@@ -3,10 +3,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-reminderbot
+  name: cluster-apps-reminderbot-general
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/reminderbot/app
+  path: ./kubernetes/apps/default/reminderbot/reminderbot-general
   prune: true
   sourceRef:
     kind: GitRepository
@@ -14,7 +14,49 @@ spec:
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
-      name: reminderbot
+      name: reminderbot-general
+      namespace: default
+  interval: 15m
+  retryInterval: 1m
+  timeout: 2m
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-reminderbot-general
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/default/reminderbot/reminderbot-clear-pre
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      kind: HelmRelease
+      name: reminderbot-clear-pre
+      namespace: default
+  interval: 15m
+  retryInterval: 1m
+  timeout: 2m
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-reminderbot-general
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/default/reminderbot/reminderbot-clear
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      kind: HelmRelease
+      name: reminderbot-clear-pre
       namespace: default
   interval: 15m
   retryInterval: 1m

@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: reminderbot
+  name: reminderbot-clear
   namespace: default
 spec:
   interval: 1m
@@ -41,7 +41,7 @@ spec:
               - secretRef:
                   name: channel-id
               - secretRef:
-                  name: message
+                  name: message-clear
     service:
       main:
         enabled: false
