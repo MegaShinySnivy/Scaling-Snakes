@@ -28,6 +28,11 @@ spec:
   values:
     controllers:
       main:
+        replicas: 3
+        strategy: RollingUpdate
+        rollingUpdate:
+          unavailable: 1
+          surge: 2
         annotations:
           reloader.stakater.com/auto: 'true'
         containers:
