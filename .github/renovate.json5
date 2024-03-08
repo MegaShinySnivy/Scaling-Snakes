@@ -5,6 +5,7 @@
     "docker:enableMajor",
     ":disableRateLimiting",
     ":dependencyDashboard",
+    ":skipStatusChecks",
     ":semanticCommits",
     ":automergeDigest",
     ":automergeBranch",
