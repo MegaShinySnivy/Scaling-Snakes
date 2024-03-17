@@ -55,7 +55,7 @@ spec:
               PROXY_USER_OIDC_CLAIM: "preferred_username"
               PROXY_ROLE_ASSIGNMENT_DRIVER: oidc
               WEB_OIDC_SCOPE: "openid profile email groups"
-              PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: "groups"
+              PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: "ocis-role"
               # User must be in one of the following groups: ocisAdmin, ocisSpaceAdmin, ocisUser, ocisGuest
               # if they aren't, they cannot login
             envFrom:
