@@ -30,7 +30,7 @@ spec:
           main:
             image:
               repository: owncloud/ocis
-              tag: 5.0.0-rc.5
+              tag: 4.0.6
             command: [/bin/sh]
             args: ["-c", "ocis init || true; ocis server"]
             env:
