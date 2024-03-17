@@ -34,7 +34,7 @@ spec:
             command: [/bin/sh]
             args: ["-c", "ocis init || true; ocis server"]
             env:
-              OCIS_INSECURE: false
+              OCIS_INSECURE: true
               OCIS_URL: https://ocis.${CLUSTER_DOMAIN}
               PROXY_TLS: false
               DEMO_USERS: false
@@ -52,10 +52,10 @@ spec:
               PROXY_AUTOPROVISION_ACCOUNTS: true
               # Auto role assignment
               # docs: https://doc.owncloud.com/ocis/next/deployment/services/s-list/proxy.html#automatic-role-assignments
-              PROXY_USER_OIDC_CLAIM: "preferred_username"
+              PROXY_USER_OIDC_CLAIM: preferred_username
               PROXY_ROLE_ASSIGNMENT_DRIVER: oidc
               WEB_OIDC_SCOPE: "openid profile email groups"
-              PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: "groups"
+              PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: groups
               # User must be in one of the following groups: ocisAdmin, ocisSpaceAdmin, ocisUser, ocisGuest
               # if they aren't, they cannot login
             envFrom:
