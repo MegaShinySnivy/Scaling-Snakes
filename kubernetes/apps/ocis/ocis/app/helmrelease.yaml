@@ -1,0 +1,118 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app ocis
+  namespace: ocis
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: docker.io/owncloud/ocis
+              tag: 5.0.0-rc.5
+            command: [/bin/sh]
+            args: ["-c", "ocis init || true; ocis server"]
+            env:
+              OCIS_INSECURE: true
+              OCIS_URL: https://ocis.${CLUSTER_DOMAIN}
+              PROXY_TLS: false
+              DEMO_USERS: false
+              PROXY_HTTP_ADDR: 0.0.0.0:9200
+              OCIS_LOG_LEVEL: info
+              OCIS_LOG_COLOR: true
+              OCIS_LOG_PRETTY: true
+              PROXY_DEBUG_ADDR: 0.0.0.0:9205
+              STORAGE_USERS_OCIS_ROOT: /data
+              # Without this, I got the following errors in the ownCloud log:
+              # Authelia: failed to verify access token: token contains an invalid number of segments
+              # Authentik:  failed to verify access token: the JWT has an invalid kid: could not find kid in JWT header
+              PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none
+              PROXY_OIDC_REWRITE_WELLKNOWN: true
+              PROXY_AUTOPROVISION_ACCOUNTS: true
+              # Auto role assignment
+              # docs: https://doc.owncloud.com/ocis/next/deployment/services/s-list/proxy.html#automatic-role-assignments
+              PROXY_USER_OIDC_CLAIM: "preferred_username"
+              PROXY_ROLE_ASSIGNMENT_DRIVER: oidc
+              WEB_OIDC_SCOPE: "openid profile email groups"
+              PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: groups
+              # User must be in one of the following groups: ocisAdmin, ocisSpaceAdmin, ocisUser, ocisGuest
+              # if they aren't, they cannot login
+            envFrom:
+              - secretRef:
+                  name: ocis-secret
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: 9200
+            primary: true
+          metrics:
+            port: 9205
+    serviceMonitor:
+      main:
+        serviceName: *app
+        endpoints:
+          - port: metrics
+    ingress:
+      main:
+        enabled: true
+        className: external
+        hosts:
+          - host: &host ocis.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: main
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      storage-users:
+        existingClaim: ocis
+        globalMounts:
+          - path: /data
+            subPath: storage-users
+      config:
+        existingClaim: ocis
+        globalMounts:
+          - path: /etc/ocis
+            subPath: config
+      data:
+        existingClaim: ocis
+        globalMounts:
+          - path: /var/lib/ocis
+            subPath: data
