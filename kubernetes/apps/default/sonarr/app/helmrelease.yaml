@@ -42,7 +42,7 @@ spec:
       # -- image repository
               repository: ghcr.io/onedr0p/sonarr-develop
       # @default -- chart.appVersion
-              tag: 
+              tag:
                 4.0.2.1341@sha256:e7e1a75fa1586559f91d5e26caac72f96f1e18ae01ccb2d7c7ce589a3bedaca4
       # -- image pull policy
               pullPolicy: IfNotPresent
@@ -110,9 +110,3 @@ spec:
         retain: true
         globalMounts:
           - path: /media
-      downloads:
-        enabled: true
-        existingClaim: sabnzbd-downloads
-        retain: true
-        globalMounts:
-          - path: /downloads-usenet

@@ -14,15 +14,3 @@ spec:
   resources:
     requests:
       storage: 8Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: sonarr-anime
-  namespace: default
-spec:
-  accessModes: ["ReadWriteMany"]
-  storageClassName: nfs
-  resources:
-    requests:
-      storage: 1Mi
