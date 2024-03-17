@@ -106,14 +106,11 @@ spec:
         existingClaim: ocis
         globalMounts:
           - path: /data
-            subPath: storage-users
       config:
-        existingClaim: ocis
+        existingClaim: ocis-config
         globalMounts:
           - path: /etc/ocis
-            subPath: config
       data:
-        existingClaim: ocis
+        existingClaim: ocis-data
         globalMounts:
           - path: /var/lib/ocis
-            subPath: data
