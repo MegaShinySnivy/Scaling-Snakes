@@ -39,7 +39,7 @@ spec:
               PROXY_TLS: false
               DEMO_USERS: false
               PROXY_HTTP_ADDR: 0.0.0.0:9200
-              OCIS_LOG_LEVEL: info
+              OCIS_LOG_LEVEL: debug
               OCIS_LOG_COLOR: true
               OCIS_LOG_PRETTY: true
               PROXY_DEBUG_ADDR: 0.0.0.0:9205
