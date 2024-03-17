@@ -57,7 +57,7 @@ spec:
         - hosts:
             - *authentik-host
     authentik:
-      log_level: trace
+      log_level: info
       secret_key: ${AUTHENTIK_SECRET_KEY}
       email:
         host: smtp.mailgun.org
