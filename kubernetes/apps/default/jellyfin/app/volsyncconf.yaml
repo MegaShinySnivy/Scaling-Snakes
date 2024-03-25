@@ -28,35 +28,6 @@ spec:
       daily: 7
       weekly: 5
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/volsync.backube/replicationsource_v1alpha1.json
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationSource
-metadata:
-  name: jellyfin-plugins
-  namespace: default
-spec:
-  sourcePVC: jellyfin-plugins
-  trigger:
-    schedule: "0 * * * *"
-  restic:
-    copyMethod: Snapshot
-    pruneIntervalDays: 7
-    repository: restic-config-jellyfin-plugins
-    cacheCapacity: 8Gi
-    cacheStorageClassName: local-path
-    cacheAccessModes: [ReadWriteOnce]
-    volumeSnapshotClassName: csi-ceph-blockpool
-    storageClassName: csi-ceph-blockpool
-    accessModes: [ReadWriteOnce]
-    moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-    retain:
-      hourly: 24
-      daily: 7
-      weekly: 5
----
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
@@ -74,21 +45,3 @@ spec:
     storageClassName: csi-ceph-blockpool
     accessModes: [ReadWriteOnce]
     capacity: 32Gi
----
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationDestination
-metadata:
-  name: "jellyfin-plugins-dst"
-spec:
-  trigger:
-    manual: restore-once
-  restic:
-    repository: restic-config-jellyfin-plugins
-    copyMethod: Snapshot # must be Snapshot
-    cacheCapacity: 8Gi
-    cacheStorageClassName: local-path
-    cacheAccessModes: [ReadWriteOnce]
-    volumeSnapshotClassName: csi-ceph-blockpool
-    storageClassName: csi-ceph-blockpool
-    accessModes: [ReadWriteOnce]
-    capacity: 8Gi

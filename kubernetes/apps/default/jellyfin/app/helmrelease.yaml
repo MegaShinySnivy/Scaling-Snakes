@@ -87,12 +87,6 @@ spec:
         retain: true
         globalMounts:
           - path: /config
-      plugins:
-        enabled: true
-        existingClaim: jellyfin-plugins
-        retain: false
-        globalMounts:
-          - path: /var/lib/jellyfin/plugins
       media:
         enabled: true
         existingClaim: media

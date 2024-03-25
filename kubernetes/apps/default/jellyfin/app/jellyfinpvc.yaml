@@ -14,19 +14,3 @@ spec:
   resources:
     requests:
       storage: 32Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: jellyfin-plugins
-  namespace: default
-spec:
-  accessModes: ["ReadWriteOnce"]
-  storageClassName: csi-ceph-blockpool
-  dataSourceRef:
-    kind: ReplicationDestination
-    apiGroup: volsync.backube
-    name: "jellyfin-plugins-dst"
-  resources:
-    requests:
-      storage: 8Gi
