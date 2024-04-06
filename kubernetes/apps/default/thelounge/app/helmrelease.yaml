@@ -33,7 +33,7 @@ spec:
           main:
             image:
               repository: thelounge/thelounge
-              tag: 4.4.1
+              tag: 4.4.3
             env:
               TZ: America/Chicago
               THELOUNGE_HOME: /config
