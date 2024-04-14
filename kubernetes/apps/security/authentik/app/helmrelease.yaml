@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.goauthentik.io
       chart: authentik
-      version: 2023.10.7
+      version: 2024.2.2
       sourceRef:
         kind: HelmRepository
         name: authentik-charts
@@ -29,33 +29,46 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    image:
-      repository: ghcr.io/goauthentik/server
-      tag: 2023.10.7
-      # -- optional container image digest
-      pullPolicy: IfNotPresent
-    service:
-      enabled: true
-      type: ClusterIP
-      port: &authentik-port 80
-      name: http
-      protocol: TCP
-    ingress:
-      enabled: true
-      ingressClassName: external
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-        hajimari.io/icon: account-check
-      hosts:
-        - host: &authentik-host "authentik.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
-              service:
-                port: *authentik-port
-      tls:
-        - hosts:
-            - *authentik-host
+    global:
+      image:
+        repository: ghcr.io/goauthentik/server
+        tag: 2024.2.2
+        # -- optional container image digest
+        pullPolicy: IfNotPresent
+      env:
+        - name: AUTHENTIK_POSTGRESQL__USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-authentik-app
+              key: username
+        - name: AUTHENTIK_POSTGRESQL__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-authentik-app
+              key: password
+    server:
+      name: server
+      replicas: 1
+      pdb:
+        enabled: false
+      ingress:
+        enabled: true
+        ingressClassName: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          hajimari.io/icon: account-check
+        hosts:
+          - host: &authentik-host "authentik.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: *authentik-port
+        tls:
+          - hosts:
+              - *authentik-host
+    serviceAccount:
+      create: true
     authentik:
       log_level: info
       secret_key: ${AUTHENTIK_SECRET_KEY}
@@ -68,33 +81,5 @@ spec:
       postgresql:
         host: "postgres-authentik-rw"
         name: "authentik"
-      redis:
-        password: ${AUTHENTIK_REDIS_PASSWORD}
-    # postgresql:
-    #   image:
-    #     tag: 11.19.0-debian-11-r4
-    #   enabled: true
-    #   postgresqlUsername: "${AUTHENTIK_POSTGRESQL_USERNAME}"
-    #   postgresqlPassword: ${AUTHENTIK_POSTGRESQL_PASSWORD}
-    #   postgresqlDatabase: "${AUTHENTIK_POSTGRESQL_DATABASE}"
-    #   persistence:
-    #     enabled: true
-    #     storageClass: csi-ceph-blockpool
-    #     accessModes:
-    #       - ReadWriteOnce
-    envValueFrom:
-      AUTHENTIK_POSTGRESQL__USER:
-        secretKeyRef:
-          key: username
-          name: postgres-authentik-app
-      AUTHENTIK_POSTGRESQL__PASSWORD:
-        secretKeyRef:
-          key: password
-          name: postgres-authentik-app
     redis:
       enabled: true
-      image:
-        tag: 6.2.10-debian-11-r13
-      auth:
-        enabled: true
-        password: ${AUTHENTIK_REDIS_PASSWORD}
