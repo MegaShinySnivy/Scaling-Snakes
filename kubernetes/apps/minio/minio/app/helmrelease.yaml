@@ -45,7 +45,7 @@ spec:
               MINIO_UPDATE: "off"
               MINIO_BROWSER_REDIRECT_URL: "https://minio.${SECRET_DOMAIN}"
               MINIO_SERVER_URL: "https://s3.${SECRET_DOMAIN}"
-              MINIO_IDENTITY_OPENID_DISPLAY_NAME: Authentik
+              MINIO_IDENTITY_OPENID_DISPLAY_NAME: "Login with Authentik"
             envFrom:
               - secretRef:
                   name: minio-secret
