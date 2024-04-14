@@ -68,6 +68,7 @@ spec:
       app:
         className: external
         annotations:
+          hajimari.io/icon: mdi:upload-multiple-outline
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
         hosts:
           - host: &console-host minio.${SECRET_DOMAIN}
