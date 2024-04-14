@@ -58,7 +58,7 @@ spec:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           hajimari.io/icon: account-check
         hosts:
-          - host: &authentik-host "authentik.${SECRET_DOMAIN}"
+          - &authentik-host "authentik.${SECRET_DOMAIN}"
         paths: ["/"]
         pathType: Prefix
         tls:
