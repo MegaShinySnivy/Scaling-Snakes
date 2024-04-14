@@ -59,11 +59,8 @@ spec:
           hajimari.io/icon: account-check
         hosts:
           - host: &authentik-host "authentik.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  port: *authentik-port
+        paths: ["/"]
+        pathType: Prefix
         tls:
           - hosts:
               - *authentik-host
