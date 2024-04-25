@@ -13,7 +13,7 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:15.2
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 8Gi
+    size: 16Gi
     storageClass: local-path
   postgresql:
     parameters:
