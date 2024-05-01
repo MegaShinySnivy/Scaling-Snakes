@@ -13,7 +13,7 @@ spec:
   imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:14.11-v0.2.0
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 8Gi
+    size: 16Gi
     storageClass: local-path
   postgresql:
     shared_preload_libraries:
