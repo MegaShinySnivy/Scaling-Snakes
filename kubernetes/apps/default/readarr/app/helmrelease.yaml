@@ -42,7 +42,7 @@ spec:
       # -- image repository
               repository: ghcr.io/onedr0p/readarr-develop
       # @default -- chart.appVersion
-              tag: 0.3.25.2515
+              tag: 0.3.26.2526
       # -- image pull policy
               pullPolicy: IfNotPresent
             envFrom:
