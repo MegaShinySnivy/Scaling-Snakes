@@ -49,6 +49,9 @@ spec:
             port: 80
     ingress:
       www:
+        annotations:
+          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+          hajimari.io/icon: mdi:gear
         enabled: true
         hosts:
           - host: &host-www 'www.${SECRET_DOMAIN}'
