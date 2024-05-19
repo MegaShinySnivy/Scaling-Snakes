@@ -63,7 +63,7 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: 10.0.10.150
         ports:
-          main:
+          http:
             port: *zomboid-host
           sub:
             port: 16262
