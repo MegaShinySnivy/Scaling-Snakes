@@ -26,6 +26,17 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    defaultPodOptions:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: "kubernetes.io/hostname"
+                    operator: In
+                    values:
+                      - k8s-worker-3
     controllers:
       main:
         annotations:
