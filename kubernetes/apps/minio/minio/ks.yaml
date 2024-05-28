@@ -8,6 +8,7 @@ metadata:
 spec:
   dependsOn:
     - name: nginx-external
+    - name: cluster-apps-authentik
   path: ./kubernetes/apps/minio/minio/app
   prune: true
   sourceRef:
