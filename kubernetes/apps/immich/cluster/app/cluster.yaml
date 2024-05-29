@@ -10,7 +10,7 @@ spec:
     initdb:
       database: immich
   instances: 3
-  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:14.11-v0.2.0
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:14.12-v0.2.1
   primaryUpdateStrategy: unsupervised
   storage:
     size: 16Gi
