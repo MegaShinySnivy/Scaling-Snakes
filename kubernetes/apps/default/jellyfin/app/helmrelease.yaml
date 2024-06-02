@@ -34,7 +34,7 @@ spec:
           main:
             image:
               repository: jellyfin/jellyfin
-              tag: latest@sha256:63136341d22edc06208a1392d544f064784dda7ac0955b2ee1da3f81cbed10ec
+              tag: latest@sha256:bf994a554ad0fc6b46a1485aff45104a17b83a3209e0aae2cb5d2cb03b95612f
             env:
               TZ: America/Chicago
               JELLYFIN_PublishedServerUrl: https://jellyfin.${SECRET_DOMAIN}
