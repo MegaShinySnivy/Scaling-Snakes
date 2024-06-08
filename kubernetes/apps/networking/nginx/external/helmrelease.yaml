@@ -50,6 +50,7 @@ spec:
               operator: In
               values: ["external"]
       config:
+        enable-modsecurity: "true"
         server-snippet: |
           resolver kube-dns.kube-system.svc.cluster.local ipv6=off;
         client-body-buffer-size: 100M
