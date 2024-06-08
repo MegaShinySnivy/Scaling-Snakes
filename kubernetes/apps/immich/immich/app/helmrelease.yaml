@@ -71,6 +71,7 @@ spec:
           annotations:
             hajimari.io/icon: mdi:camera-iris
             external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+            nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
             nginx.ingress.kubernetes.io/proxy-body-size: "0"
           hosts:
             - host: &host "immich.${SECRET_DOMAIN}"

@@ -69,6 +69,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:book
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+          nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         hosts:
           - host: &host komga.${SECRET_DOMAIN}
             paths:

@@ -68,6 +68,7 @@ spec:
       toplevel:
         annotations:
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+          nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         enabled: true
         hosts:
           - host: &host-toplevel '${SECRET_DOMAIN}'

@@ -74,6 +74,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           hajimari.io/icon: mdi:jellyfish
+          nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         hosts:
           - host: &host jellyseerr.${SECRET_DOMAIN}
             paths:
