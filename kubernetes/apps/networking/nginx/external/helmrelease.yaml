@@ -51,6 +51,14 @@ spec:
               values: ["external"]
       config:
         enable-modsecurity: "true"
+        enable-owasp-modsecurity-crs: "true"
+        modsecurity-snippet: |-
+          SecRuleEngine On
+          SecAuditEngine RelevantOnly
+          SecStatusEngine On
+          SecRequestBodyAccess On
+          SecAuditLog /dev/stdout
+          SecAuditLogFormat JSON
         server-snippet: |
           resolver kube-dns.kube-system.svc.cluster.local ipv6=off;
         client-body-buffer-size: 100M
