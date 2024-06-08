@@ -58,7 +58,8 @@ spec:
           SecStatusEngine On
           SecRequestBodyAccess On
           SecAuditLog /dev/stdout
-          SecAuditLogFormat Native
+          SecAuditLogFormat JSON
+          SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
         server-snippet: |
           resolver kube-dns.kube-system.svc.cluster.local ipv6=off;
         client-body-buffer-size: 100M
