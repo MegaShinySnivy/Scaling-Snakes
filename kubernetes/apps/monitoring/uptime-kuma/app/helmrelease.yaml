@@ -76,4 +76,4 @@ spec:
         existingClaim: kuma-config
         retain: true
         globalMounts:
-          - path: /config
+          - path: /app/data
