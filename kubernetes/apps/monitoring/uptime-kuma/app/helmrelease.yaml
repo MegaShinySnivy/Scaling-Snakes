@@ -57,7 +57,6 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           hajimari.io/icon: mdi:clock-alert-outline
-          nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         hosts:
           - host: &host kuma.${SECRET_DOMAIN}
             paths:
