@@ -47,8 +47,6 @@ spec:
           memory: 10Mi
         limits:
           memory: 10Mi
-    typesense:
-      enabled: false
     immich:
       metrics:
         enabled: true
@@ -123,5 +121,5 @@ spec:
           secretKeyRef:
             name: postgres-immich-app
             key: uri
-      LOG_LEVEL: verbose
+      IMMICH_LOG_LEVEL: verbose
       IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
