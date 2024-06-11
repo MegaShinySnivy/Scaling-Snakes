@@ -31,7 +31,7 @@ spec:
       enabled: false
     redis:
       image:
-        tag: 7.0.11-debian-11-r18
+        tag: 6.2-debian-12
       enabled: true
       architecture: standalone
       auth:
