@@ -5,3 +5,4 @@ namespace: immich
 resources:
   - ./helmrelease.yaml
   - ./pvc.yaml
+  - ./hpa.yaml

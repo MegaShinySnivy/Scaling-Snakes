@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: immich
-      version: 0.6.0
+      version: 0.7.0
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -26,7 +26,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      tag: &appVersion "v1.105.1"
+      tag: &appVersion "v1.106.1"
     postgres:
       enabled: false
     redis:
@@ -50,13 +50,14 @@ spec:
     typesense:
       enabled: false
     immich:
+      metrics:
+        enabled: true
       persistence:
         library:
           existingClaim: immich-nfs
     server:
       enabled: true
       controller:
-        replicas: 3
         strategy: RollingUpdate
         rollingUpdate:
           unavailable: "1"
@@ -85,32 +86,15 @@ spec:
         requests:
           cpu: 20m
           memory: 600Mi
-    microservices:
-      enabled: true
-      controller:
-        strategy: RollingUpdate
-        replicas: 3
-        rollingUpdate:
-          unavailable: "1"
-      persistence:
-        geodata-cache:
-          enabled: true
-          size: 1Gi
-          type: emptyDir
-          accessMode: ReadWriteMany
-      resources:
-        requests:
-          cpu: 10m
-          memory: 300Mi
-        limits:
-          memory: 1000Mi
     machine-learning:
       enabled: true
       controller:
         strategy: RollingUpdate
-        replicas: 3
         rollingUpdate:
           unavailable: "1"
+      image:
+        repository: ghcr.io/immich-app/immich-machine-learning
+        tag: *appVersion
       persistence:
         geodata-cache:
           enabled: true

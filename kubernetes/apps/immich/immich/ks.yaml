@@ -8,6 +8,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cloudnative-pg-cluster-immich
+    - name: cluster-apps-authentik
   path: ./kubernetes/apps/immich/immich/app
   prune: true
   sourceRef:
