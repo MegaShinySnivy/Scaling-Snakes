@@ -1,5 +1,5 @@
 ---
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: immich-server
@@ -22,7 +22,7 @@ spec:
         type: Utilization
         averageUtilization: 50
 ---
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: immich-machine-learning
