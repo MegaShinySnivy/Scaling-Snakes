@@ -26,7 +26,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      tag: &appVersion "v1.106.2"
+      tag: &appVersion "v1.106.3"
     postgres:
       enabled: false
     redis:
