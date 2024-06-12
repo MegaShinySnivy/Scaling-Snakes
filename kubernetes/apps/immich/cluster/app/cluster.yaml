@@ -49,8 +49,8 @@ spec:
         serverName: postgres-v1
         s3Credentials:
           accessKeyId:
-            name: authentik-pg-secret
+            name: immich-pg-secret
             key: AWS_ACCESS_KEY_ID
           secretAccessKey:
-            name: authentik-pg-secret
+            name: immich-pg-secret
             key: AWS_SECRET_ACCESS_KEY
