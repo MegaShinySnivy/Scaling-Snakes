@@ -44,7 +44,7 @@ spec:
       barmanObjectStore:
         wal:
           maxParallel: 8
-        destinationPath: s3://authentik-immich-backups/
+        destinationPath: s3://immich-postgres-backups/
         endpointURL: http://10.0.30.12:9001
         serverName: postgres-v1
         s3Credentials:
