@@ -9,7 +9,7 @@ spec:
   dependsOn:
     - name: cluster-apps-cloudnative-pg-cluster-immich-testing
     - name: cluster-apps-authentik
-  path: ./kubernetes/apps/immich/immich/app
+  path: ./kubernetes/apps/immich-testing/immich/app
   prune: true
   sourceRef:
     kind: GitRepository
