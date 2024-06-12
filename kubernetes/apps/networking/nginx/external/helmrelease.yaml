@@ -50,22 +50,22 @@ spec:
               operator: In
               values: ["external"]
       config:
-        # enable-modsecurity: "true"
-        # enable-owasp-modsecurity-crs: "true"
-        # modsecurity-snippet: |-
-        #   SecRuleEngine On
-        #   SecAuditEngine RelevantOnly
-        #   SecStatusEngine On
-        #   SecRequestBodyAccess On
-        #   SecAuditLog /dev/stdout
-        #   SecAuditLogFormat JSON
-        #   SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
+        enable-modsecurity: "true"
+        enable-owasp-modsecurity-crs: "true"
+        modsecurity-snippet: |-
+          SecRuleEngine On
+          SecAuditEngine RelevantOnly
+          SecStatusEngine On
+          SecRequestBodyAccess On
+          SecAuditLog /dev/stdout
+          SecAuditLogFormat JSON
+          SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
         server-snippet: |
           resolver kube-dns.kube-system.svc.cluster.local ipv6=off;
         client-body-buffer-size: 100M
         client-body-timeout: 120
         client-header-timeout: 120
-        # custom-http-errors: 400,401,403,404,500,502,503,504
+        custom-http-errors: 400,401,403,404,500,502,503,504
         enable-brotli: "true"
         enable-real-ip: "true"
         hide-headers: Server,X-Powered-By
