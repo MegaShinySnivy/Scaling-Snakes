@@ -7,8 +7,8 @@ metadata:
   namespace: immich
 spec:
   bootstrap:
-    initdb:
-      database: immich
+    recovery:
+      source: clusterBackup
   instances: 3
   imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:14.12-v0.2.1
   primaryUpdateStrategy: unsupervised
@@ -31,7 +31,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://immich-postgres-backups/
       endpointURL: http://10.0.30.12:9001
-      serverName: postgres-v1
+      serverName: postgres-v2
       s3Credentials:
         accessKeyId:
           name: immich-pg-secret
@@ -39,3 +39,18 @@ spec:
         secretAccessKey:
           name: immich-pg-secret
           key: AWS_SECRET_ACCESS_KEY
+  externalClusters:
+    - name: clusterBackup
+      barmanObjectStore:
+        wal:
+          maxParallel: 8
+        destinationPath: s3://authentik-immich-backups/
+        endpointURL: http://10.0.30.12:9001
+        serverName: postgres-v1
+        s3Credentials:
+          accessKeyId:
+            name: authentik-pg-secret
+            key: AWS_ACCESS_KEY_ID
+          secretAccessKey:
+            name: authentik-pg-secret
+            key: AWS_SECRET_ACCESS_KEY
