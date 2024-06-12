@@ -50,17 +50,16 @@ spec:
               operator: In
               values: ["external"]
       config:
-        enable-modsecurity: "true"
-        enable-owasp-modsecurity-crs: "true"
-        modsecurity-snippet: |-
-          SecRuleEngine On
-          SecAuditEngine RelevantOnly
-          SecStatusEngine On
-          SecRequestBodyAccess On
-          SecAuditLog /dev/stdout
-          SecAuditLogFormat JSON
-          SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
-          SecAction "id:900200,phase:1,pass,t:none,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.4.0-dev',setvar:'tx.allowed_methods=GET HEAD POST OPTIONS PUT PATCH DELETE'"
+        # enable-modsecurity: "true"
+        # enable-owasp-modsecurity-crs: "true"
+        # modsecurity-snippet: |-
+        #   SecRuleEngine On
+        #   SecAuditEngine RelevantOnly
+        #   SecStatusEngine On
+        #   SecRequestBodyAccess On
+        #   SecAuditLog /dev/stdout
+        #   SecAuditLogFormat JSON
+        #   SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
         server-snippet: |
           resolver kube-dns.kube-system.svc.cluster.local ipv6=off;
         client-body-buffer-size: 100M
@@ -110,11 +109,11 @@ spec:
           memory: 250Mi
         limits:
           memory: 500Mi
-    # defaultBackend:
-    #   enabled: true
-    #   image:
-    #     repository: ghcr.io/tarampampam/error-pages
-    #     tag: 2.27.0
-    #   extraEnvs:
-    #     - { name: TEMPLATE_NAME, value: cats }
-    #     - { name: SHOW_DETAILS, value: "false" }
+    defaultBackend:
+      enabled: true
+      image:
+        repository: ghcr.io/tarampampam/error-pages
+        tag: 2.27.0
+      extraEnvs:
+        - { name: TEMPLATE_NAME, value: cats }
+        - { name: SHOW_DETAILS, value: "false" }
