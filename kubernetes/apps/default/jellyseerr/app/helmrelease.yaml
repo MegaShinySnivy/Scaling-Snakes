@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: fallenbagel/jellyseerr
-              tag: 1.9.1
+              tag: 1.9.2
             env:
               TZ: America/Chicago
               LOG_LEVEL: info
