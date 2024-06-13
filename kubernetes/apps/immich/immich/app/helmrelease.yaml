@@ -104,7 +104,7 @@ spec:
           accessMode: ReadWriteMany
       resources:
         requests:
-          cpu: 3m
+          cpu: 30m
           memory: 200Mi
     env:
       DB_DATABASE_NAME: immich
