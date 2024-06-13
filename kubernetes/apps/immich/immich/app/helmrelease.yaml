@@ -85,7 +85,7 @@ spec:
                 - *host
       resources:
         requests:
-          cpu: 30m
+          cpu: 1500m
           memory: 600Mi
     machine-learning:
       enabled: true
@@ -102,6 +102,10 @@ spec:
           size: 8Gi
           type: emptyDir
           accessMode: ReadWriteMany
+      resources:
+        requests:
+          cpu: 3m
+          memory: 200Mi
     env:
       DB_DATABASE_NAME: immich
       DB_HOSTNAME:
