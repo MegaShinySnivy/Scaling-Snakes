@@ -1,0 +1,76 @@
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: bazarr-anime
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/bazarr
+              tag: 1.4.3@sha256:d2b70813f7d636fb1ab3448e13ca4074630b63216c6c6d02d034cd5d9e938ea3
+            envFrom:
+              - secretRef:
+                  name: bazarr-secret
+            env:
+              TZ: America/New_York
+    service:
+      main:
+        ports:
+          http:
+            port: &bazarr-port 6767
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          hajimari.io/icon: mdi:subtitles-outline
+        hosts:
+          - host: &host 'bazarr-anime.${SECRET_DOMAIN}'
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+        className: internal
+    persistence:
+      config:
+        enabled: true
+        existingClaim: bazarr-config-anime
+        accessMode: ReadWriteOnce
+        retain: true
+      media:
+        enabled: true
+        existingClaim: media
+        retain: true
+        globalMounts:
+          - path: /media
