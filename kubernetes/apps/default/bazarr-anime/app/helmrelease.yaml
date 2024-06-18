@@ -31,7 +31,7 @@ spec:
         runAsUser: 568
         runAsGroup: 568
         fsGroup: 568
-        fsGroupChangePolicy: OnRootMismatch
+        fsGroupChangePolicy: Always
         supplementalGroups: [1000]
     controllers:
       main:
