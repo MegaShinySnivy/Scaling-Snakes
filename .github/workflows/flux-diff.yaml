@@ -29,7 +29,7 @@ jobs:
           # Defaults to path relative to $RUNNER_TOOL_CACHE.
           bindir: ''
       - name: Diff Resources
-        uses: allenporter/flux-local/action/diff@d8c22f60a32e72f029c28fef62d6961f40899b9c # 5.3.2
+        uses: allenporter/flux-local/action/diff@5409e974ef566c0ed5bf95c4f87ca7932e512bee # 5.4.0
         id: diff
         with:
           sources: home-kubernetes
