@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: fallenbagel/jellyseerr
-              tag: 1.9.0
+              tag: 1.9.2
             env:
               TZ: America/Chicago
               LOG_LEVEL: info
@@ -74,7 +74,6 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           hajimari.io/icon: mdi:jellyfish
-          nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         hosts:
           - host: &host jellyseerr.${SECRET_DOMAIN}
             paths:
