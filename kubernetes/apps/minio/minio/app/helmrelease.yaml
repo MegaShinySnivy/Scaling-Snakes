@@ -70,7 +70,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:upload-multiple-outline
           nginx.ingress.kubernetes.io/client-max-body-size: "0"
-          nginx.ingress.kubernetes.io/custom-http-errors: "599"
+          nginx.ingress.kubernetes.io/custom-http-errors: "500,503"
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
         hosts:
           - host: &console-host minio.${SECRET_DOMAIN}
