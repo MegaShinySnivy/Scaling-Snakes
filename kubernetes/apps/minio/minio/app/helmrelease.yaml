@@ -43,7 +43,7 @@ spec:
               tag: RELEASE.2024-04-06T05-26-02Z
             env:
               MINIO_UPDATE: "off"
-              MINIO_BROWSER_REDIRECT_URL: "https://minio.${SECRET_DOMAIN}/login"
+              MINIO_BROWSER_REDIRECT_URL: "https://minio.${SECRET_DOMAIN}"
               MINIO_SERVER_URL: "https://s3.${SECRET_DOMAIN}"
               MINIO_IDENTITY_OPENID_DISPLAY_NAME: "Login with Authentik"
             envFrom:
@@ -70,7 +70,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:upload-multiple-outline
           nginx.ingress.kubernetes.io/client-max-body-size: "0"
-          nginx.ingress.kubernetes.io/custom-http-errors: "404,500,503"
+          nginx.ingress.kubernetes.io/custom-http-errors: "599"
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
         hosts:
           - host: &console-host minio.${SECRET_DOMAIN}
