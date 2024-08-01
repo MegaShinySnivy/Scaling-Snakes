@@ -43,7 +43,7 @@ spec:
               tag: RELEASE.2024-04-06T05-26-02Z
             env:
               MINIO_UPDATE: "off"
-              MINIO_BROWSER_REDIRECT_URL: "https://minio.${SECRET_DOMAIN}"
+              MINIO_BROWSER_REDIRECT_URL: "https://minio.${SECRET_DOMAIN}/login"
               MINIO_SERVER_URL: "https://s3.${SECRET_DOMAIN}"
               MINIO_IDENTITY_OPENID_DISPLAY_NAME: "Login with Authentik"
             envFrom:
