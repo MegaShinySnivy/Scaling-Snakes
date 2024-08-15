@@ -73,7 +73,7 @@ spec:
             nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
             external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
             nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-            nginx.ingress.kubernetes.io/custom-http-errors: 400,401,404,500,502,503,504
+            nginx.ingress.kubernetes.io/custom-http-errors: 499
             nginx.ingress.kubernetes.io/proxy-body-size: "0"
           hosts:
             - host: &host "immich.${SECRET_DOMAIN}"
