@@ -27,12 +27,6 @@ spec:
     keepHistory: false
   values:
     defaultPodOptions:
-      securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
-        fsGroupChangePolicy: Always
-        supplementalGroups: [1000]
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -58,9 +52,7 @@ spec:
             env:
               TZ: America/Chicago
               MAXPLAYERS: 8
-              PGID: 568
-              PUID: 568
-              ROOTLESS: true
+
             probes:
               liveness:
                 enabled: false
