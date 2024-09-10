@@ -68,6 +68,10 @@ spec:
         ports:
           http:
             port: 7777
+            protocol: UDP
+          sub:
+            port: 7777
+            protocol: TCP
     ingress:
       main:
         enabled: false
