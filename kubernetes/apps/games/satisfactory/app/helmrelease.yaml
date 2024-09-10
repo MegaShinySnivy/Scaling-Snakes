@@ -1,0 +1,88 @@
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: satisfactory
+  namespace: games
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: Always
+        supplementalGroups: [1000]
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: "kubernetes.io/hostname"
+                    operator: In
+                    values:
+                      - k8s-worker-3
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+        containers:
+          main:
+            image:
+              repository: ghcr.io/wolveix/satisfactory-server:dev
+              tag: latest@sha256:04f82315c14ad2cd351a195bc80dd396e6d8cbc69b38437286d6a98991905244
+            envFrom:
+              - secretRef:
+                  name: admin-secret
+            env:
+              TZ: America/Chicago
+              MAXPLAYERS: 8
+              PGID: 568
+              PUID: 568
+              ROOTLESS: true
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+    service:
+      main:
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: 10.0.10.151
+        ports:
+          http:
+            port: 7777
+    ingress:
+      main:
+        enabled: false
+    persistence:
+      config:
+        enabled: true
+        existingClaim: satisfactory-data
+        retain: true
+        globalMounts:
+          - path: /config

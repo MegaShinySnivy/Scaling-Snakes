@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./zomboid-tf/ks.yaml
+  - ./satisfactory/ks.yaml
