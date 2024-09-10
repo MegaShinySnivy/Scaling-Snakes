@@ -50,8 +50,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/wolveix/satisfactory-server:dev
-              tag: latest@sha256:49462041a54b6b8de83e60e532a5566cb6f440d2343489779fb2793af5f77423 
+              repository: ghcr.io/wolveix/satisfactory-server
+              tag: latest@sha256:49462041a54b6b8de83e60e532a5566cb6f440d2343489779fb2793af5f77423
             envFrom:
               - secretRef:
                   name: admin-secret
