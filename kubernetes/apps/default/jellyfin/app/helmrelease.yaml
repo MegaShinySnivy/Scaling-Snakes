@@ -41,7 +41,7 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 2000Mi
+                memory: 4000Mi
             probes:
               liveness: &probes
                 enabled: true
