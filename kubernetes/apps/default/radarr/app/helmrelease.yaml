@@ -43,7 +43,7 @@ spec:
               repository: ghcr.io/onedr0p/radarr-develop
       # @default -- chart.appVersion
               tag:
-                5.10.3.9178@sha256:751c19ed421afe5cec92f48c39f225ad7a2a420425da8e4f9ea121e489e53f05
+                5.11.0.9244@sha256:db4b57f5e05304f6b2d47a6863da9e584f1f05af3b61584cb146dc358dd1430b
       # -- image pull policy
               pullPolicy: IfNotPresent
             envFrom:
