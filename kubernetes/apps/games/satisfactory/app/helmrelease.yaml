@@ -45,7 +45,7 @@ spec:
           main:
             image:
               repository: ghcr.io/wolveix/satisfactory-server
-              tag: dev@sha256:5f28c37ae022122160bd7262e3f2fe7c411fdc76dc39bf4f8cbaf3b38e59102f
+              tag: dev@sha256:bc15cb865421d0fe9809c17928417645ac71a1b865bddc54598beef66a9aecad
             envFrom:
               - secretRef:
                   name: admin-secret
