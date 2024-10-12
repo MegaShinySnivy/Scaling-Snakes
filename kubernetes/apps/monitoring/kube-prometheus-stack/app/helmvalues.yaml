@@ -30,7 +30,7 @@ data:
           routes:
             - receiver: "null"
               matchers:
-                - alertname =~ "InfoInhibitor|Watchdog|CPUThrottlingHigh"
+                - alertname =~ "InfoInhibitor|Watchdog|CPUThrottlingHigh|PrometheusDuplicateTimestamps"
               continue: false
             - receiver: "discord"
         receivers:
