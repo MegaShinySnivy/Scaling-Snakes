@@ -40,8 +40,8 @@ spec:
               JELLYFIN_PublishedServerUrl: https://jellyfin.${SECRET_DOMAIN}
             resources:
               requests:
-                cpu: 100m
-                memory: 4000Mi
+                cpu: 500m
+                memory: 8000Mi
             probes:
               liveness: &probes
                 enabled: true
