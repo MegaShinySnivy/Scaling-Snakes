@@ -34,7 +34,7 @@ spec:
           main:
             image:
               repository: ghcr.io/megashinysnivy/reminderbot
-              tag: latest@sha256:46d9714f52527caae348f8ed668b3a0efbed6a8568059dd44d04306cd35c0025
+              tag: latest@sha256:eb746c27234f90eb9e2b246a524d6f51a5fd6a9bc388aa4366638592085d7694
             envFrom:
               - secretRef:
                   name: bot-token
