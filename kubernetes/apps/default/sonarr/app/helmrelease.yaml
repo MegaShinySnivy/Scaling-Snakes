@@ -43,7 +43,7 @@ spec:
               repository: ghcr.io/onedr0p/sonarr-develop
       # @default -- chart.appVersion
               tag:
-                4.0.11.2793@sha256:9a9ad2c77681877c850ef3f1de86c60b515e1329816921778e148537efa0549a
+                4.0.12.2825@sha256:ae7efba78efc1d4923578f97933e206dcdf43fb1fd2533cfa3be77ab6d0e74b1
       # -- image pull policy
               pullPolicy: IfNotPresent
             envFrom:
