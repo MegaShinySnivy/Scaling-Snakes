@@ -9,4 +9,4 @@ spec:
   storageClassName: csi-ceph-blockpool
   resources:
     requests:
-      storage: 40Gi
+      storage: 64Gi
