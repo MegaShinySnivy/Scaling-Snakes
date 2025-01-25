@@ -27,5 +27,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    csi:
+      enableVolumeGroupSnapshot: false
     monitoring:
       enabled: true
