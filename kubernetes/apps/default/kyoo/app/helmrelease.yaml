@@ -99,6 +99,7 @@ spec:
         existingSecret: *secret
       tvdb:
         apikeyKey: TVDB_APIKEY
+        pinKey: TVDB_PIN
         existingSecret: *secret
 
     autosync:
