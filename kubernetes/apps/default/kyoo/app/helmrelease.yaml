@@ -52,6 +52,7 @@ spec:
             passwordKey: password
             existingSecret: postgres-kyoo-transcode-app
       rabbitmq:
+        host: kyoo-rabbitmq
         infra:
           passwordKey: rabbitmq_user
           keyErlangCookie: rabbitmq_cookie
@@ -175,3 +176,9 @@ spec:
       enabled: true
     rabbitmq:
       enabled: true
+      auth:
+        username: kyoo
+        existingPasswordSecret: "{{ .Values.global.rabbitmq.infra.existingSecret }}"
+        existingSecretPasswordKey: "{{ .Values.global.rabbitmq.infra.passwordKey }}"
+        existingErlangSecret: "{{ .Values.global.rabbitmq.infra.existingSecret }}"
+        existingSecretErlangKey: "{{ .Values.global.rabbitmq.infra.keyErlangCookie }}"
