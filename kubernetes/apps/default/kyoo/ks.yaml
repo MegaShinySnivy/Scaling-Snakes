@@ -33,7 +33,7 @@ spec:
   dependsOn:
     - name: cluster-apps-cloudnative-pg
     - name: local-path-provisioner
-  path: ./kubernetes/apps/security/kyoo/clusters/back
+  path: ./kubernetes/apps/default/kyoo/clusters/back
   prune: true
   sourceRef:
     kind: GitRepository
@@ -52,7 +52,7 @@ spec:
   dependsOn:
     - name: cluster-apps-cloudnative-pg
     - name: local-path-provisioner
-  path: ./kubernetes/apps/security/kyoo/clusters/transcode
+  path: ./kubernetes/apps/default/kyoo/clusters/transcode
   prune: true
   sourceRef:
     kind: GitRepository
