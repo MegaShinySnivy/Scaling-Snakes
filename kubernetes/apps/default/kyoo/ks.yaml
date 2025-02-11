@@ -1,0 +1,63 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-kyoo
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-rook-ceph-cluster
+    - name: cluster-apps-cloudnative-pg-cluster-kyoo-back
+    - name: cluster-apps-cloudnative-pg-cluster-kyoo-transcode
+  path: ./kubernetes/apps/default/kyoo/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      kind: HelmRelease
+      name: kyoo
+      namespace: default
+  interval: 15m
+  retryInterval: 1m
+  timeout: 2m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-cloudnative-pg-cluster-kyoo-back
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-cloudnative-pg
+    - name: local-path-provisioner
+  path: ./kubernetes/apps/security/kyoo/clusters/back
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-cloudnative-pg-cluster-kyoo-transcode
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-cloudnative-pg
+    - name: local-path-provisioner
+  path: ./kubernetes/apps/security/kyoo/clusters/transcode
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m

@@ -27,3 +27,4 @@ resources:
   - ./rook-ceph.yaml
   - ./coder.yaml
   - ./immich.yaml
+  - ./zoriya.yaml
