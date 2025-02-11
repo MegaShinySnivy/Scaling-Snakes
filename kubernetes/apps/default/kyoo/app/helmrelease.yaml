@@ -34,13 +34,13 @@ spec:
       postgres:
         infra:
           user: kyoo
-          passwordKey: AUTHENTIK_POSTGRESQL__PASSWORD
+          passwordKey: password
           existingSecret: postgres-kyoo-app
         kyoo_back:
           host: postgres-kyoo-back-rw
           kyoo_migrations: &psql
-            userKey: AUTHENTIK_POSTGRESQL__USER
-            passwordKey: AUTHENTIK_POSTGRESQL__PASSWORD
+            userKey: user
+            passwordKey: password
             existingSecret: postgres-kyoo-back-app
           kyoo_back: *psql
         kyoo_transcoder:
@@ -48,8 +48,8 @@ spec:
           database: kyoo_transcoder
           sslmode: require
           kyoo_transcoder:
-            userKey: AUTHENTIK_POSTGRESQL__USER
-            passwordKey: AUTHENTIK_POSTGRESQL__PASSWORD
+            userKey: user
+            passwordKey: password
             existingSecret: postgres-kyoo-transcode-app
       rabbitmq:
         infra:
