@@ -178,7 +178,6 @@ spec:
       enabled: true
       auth:
         username: kyoo
-        existingPasswordSecret: "{{ .Values.global.rabbitmq.infra.existingSecret }}"
-        existingSecretPasswordKey: "{{ .Values.global.rabbitmq.infra.passwordKey }}"
+        password: ${RABBITMQ_PASSWORD}
         existingErlangSecret: "{{ .Values.global.rabbitmq.infra.existingSecret }}"
         existingSecretErlangKey: "{{ .Values.global.rabbitmq.infra.keyErlangCookie }}"
