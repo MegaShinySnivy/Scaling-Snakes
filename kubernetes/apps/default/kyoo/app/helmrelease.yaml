@@ -45,7 +45,7 @@ spec:
           kyoo_back: *psql
         kyoo_transcoder:
           host: postgres-kyoo-transcode-rw
-          database: kyoo_transcoder
+          database: kyoo_transcode
           sslmode: require
           kyoo_transcoder:
             userKey: user
