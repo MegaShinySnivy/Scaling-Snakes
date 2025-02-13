@@ -54,7 +54,8 @@ spec:
       rabbitmq:
         host: kyoo-rabbitmq
         infra:
-          passwordKey: rabbitmq_user
+          # MAKE SURE THIS IS SET TO THE PASSWORD YOU FUCKING DUMBASS
+          passwordKey: rabbitmq_password
           keyErlangCookie: rabbitmq_cookie
           existingSecret: *secret
         kyoo_autosync: &rabbit
@@ -178,6 +179,3 @@ spec:
       enabled: true
       auth:
         username: kyoo
-        password: ${RABBITMQ_PASSWORD}
-        existingErlangSecret: "{{ .Values.global.rabbitmq.infra.existingSecret }}"
-        existingSecretErlangKey: "{{ .Values.global.rabbitmq.infra.keyErlangCookie }}"
