@@ -164,7 +164,6 @@ spec:
             memory: 500Mi
           limits:
             cpu: 1
-            gpu.intel.com/i915: 1
             memory: 8Gi
 
     ingress:
