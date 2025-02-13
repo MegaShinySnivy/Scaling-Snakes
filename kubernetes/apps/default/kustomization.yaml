@@ -19,4 +19,4 @@ resources:
   - ./komga/ks.yaml
   - ./jellyfin/ks.yaml
   - ./jellyseerr/ks.yaml
-  # - ./kyoo/ks.yaml
+  - ./kyoo/ks.yaml
