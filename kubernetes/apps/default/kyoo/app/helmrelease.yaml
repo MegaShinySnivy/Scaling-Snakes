@@ -170,6 +170,8 @@ spec:
       enabled: true
       ingressClassName: external
       host: kyoo.${SECRET_DOMAIN}
+      annotations:
+        nginx.ingress.kubernetes.io/custom-http-errors: "404,503"
       tls: true
 
     meilisearch:
