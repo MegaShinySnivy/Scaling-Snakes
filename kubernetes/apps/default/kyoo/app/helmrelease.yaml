@@ -59,7 +59,7 @@ spec:
           existingSecret: *secret
         kyoo_autosync: &rabbit
           userKey: rabbitmq_user
-          passwordKey: ${RABBITMQ_PASSWORD}
+          passwordKey: rabbitmq_password
           existingSecret: *secret
         kyoo_back: *rabbit
         kyoo_matcher: *rabbit
