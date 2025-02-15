@@ -78,9 +78,9 @@ spec:
           clientIdKey: OIDC_AUTHENTIK_CLIENTID
           clientSecretKey: OIDC_AUTHENTIK_SECRET
           logo: https://raw.githubusercontent.com/goauthentik/authentik/refs/heads/main/website/static/img/icon.png
-          authorizationAddress: https://authentik.${SECRET_DOMAIN}.com/application/o/authorize/
-          tokenAddress: https://authentik.${SECRET_DOMAIN}.com/application/o/token/
-          profileAddress: https://authentik.${SECRET_DOMAIN}.com/application/o/userinfo/
+          authorizationAddress: https://authentik.${SECRET_DOMAIN}/application/o/authorize/
+          tokenAddress: https://authentik.${SECRET_DOMAIN}/application/o/token/
+          profileAddress: https://authentik.${SECRET_DOMAIN}/application/o/userinfo/
           scope: "openid email profile"
           authMethod: ClientSecretBasic
 
