@@ -172,6 +172,7 @@ spec:
       host: kyoo.${SECRET_DOMAIN}
       annotations:
         nginx.ingress.kubernetes.io/custom-http-errors: "404,503"
+        external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
       tls: true
 
     meilisearch:
