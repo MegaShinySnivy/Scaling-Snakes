@@ -44,8 +44,6 @@ spec:
               pullPolicy: IfNotPresent
             envFrom:
               - secretRef:
-                  name: postgres-romm-app
-              - secretRef:
                   name: romm-secret
             env:
               TZ: America/Chicago
@@ -58,6 +56,26 @@ spec:
               OIDC_PROVIDER: authentik
               OIDC_REDIRECT_URI: https://romm.${SECRET_DOMAIN}/api/oauth/openid
               OIDC_SERVER_APPLICATION_URL: https://authentik.${SECRET_DOMAIN}/application/o/romm
+              DB_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-romm-app
+                    key: host
+              DB_NAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-romm-app
+                    key: dbname
+              DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-romm-app
+                    key: password
+              DB_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-romm-app
+                    key: user
     service:
       main:
         enabled: true

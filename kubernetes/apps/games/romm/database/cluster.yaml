@@ -7,8 +7,7 @@ metadata:
   namespace: games
 spec:
   bootstrap:
-    recovery:
-      source: initdb
+    initdb:
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:15.2
   primaryUpdateStrategy: unsupervised
