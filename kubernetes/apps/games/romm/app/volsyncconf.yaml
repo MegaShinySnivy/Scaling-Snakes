@@ -181,7 +181,7 @@ spec:
   trigger:
     manual: restore-once
   restic:
-    repository: restic-resouces-romm
+    repository: restic-redis-data-romm
     copyMethod: Snapshot # must be Snapshot
     cacheCapacity: 8Gi
     cacheStorageClassName: local-path
