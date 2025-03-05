@@ -66,12 +66,12 @@ spec:
                   secretKeyRef:
                     name: postgres-romm-app
                     key: dbname
-              DB_PASSWORD:
+              DB_PASSWD:
                 valueFrom:
                   secretKeyRef:
                     name: postgres-romm-app
                     key: password
-              DB_USERNAME:
+              DB_USER:
                 valueFrom:
                   secretKeyRef:
                     name: postgres-romm-app
