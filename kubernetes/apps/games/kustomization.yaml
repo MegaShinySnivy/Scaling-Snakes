@@ -6,4 +6,4 @@ resources:
   - ./games-pvc.yaml
   - ./zomboid-tf/ks.yaml
   - ./satisfactory/ks.yaml
-  # - ./romm/ks.yaml
+  - ./romm/ks.yaml
