@@ -1,0 +1,54 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/releases/cnpg-1.15.0.yaml
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-romm
+  namespace: games
+spec:
+  bootstrap:
+    recovery:
+      source: initdb
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:15.2
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 16Gi
+    storageClass: local-path
+  postgresql:
+    parameters:
+      max_connections: "600"
+      shared_buffers: 512MB
+  monitoring:
+    enablePodMonitor: true
+  backup:
+    retentionPolicy: 30d
+    barmanObjectStore:
+      wal:
+        compression: bzip2
+        maxParallel: 8
+      destinationPath: s3://romm-postgres-backups/
+      endpointURL: http://10.0.30.12:9001
+      serverName: postgres-v2
+      s3Credentials:
+        accessKeyId:
+          name: romm-pg-secret
+          key: AWS_ACCESS_KEY_ID
+        secretAccessKey:
+          name: romm-pg-secret
+          key: AWS_SECRET_ACCESS_KEY
+  externalClusters:
+    - name: clusterBackup
+      barmanObjectStore:
+        wal:
+          maxParallel: 8
+        destinationPath: s3://romm-postgres-backups/
+        endpointURL: http://10.0.30.12:9001
+        serverName: postgres-v1
+        s3Credentials:
+          accessKeyId:
+            name: romm-pg-secret
+            key: AWS_ACCESS_KEY_ID
+          secretAccessKey:
+            name: romm-pg-secret
+            key: AWS_SECRET_ACCESS_KEY

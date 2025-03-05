@@ -1,0 +1,192 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: romm-config
+  namespace: games
+spec:
+  sourcePVC: romm-config
+  trigger:
+    schedule: "0 * * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: restic-config-romm
+    cacheCapacity: 8Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: [ReadWriteOnce]
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: csi-ceph-blockpool
+    accessModes: [ReadWriteOnce]
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 5
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: "romm-config-dst"
+  namespace: games
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: restic-config-romm
+    copyMethod: Snapshot # must be Snapshot
+    cacheCapacity: 8Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: [ReadWriteOnce]
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: csi-ceph-blockpool
+    accessModes: [ReadWriteOnce]
+    capacity: 8Gi
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: romm-assets
+  namespace: games
+spec:
+  sourcePVC: romm-assets
+  trigger:
+    schedule: "0 * * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: restic-assets-romm
+    cacheCapacity: 8Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: [ReadWriteOnce]
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: csi-ceph-blockpool
+    accessModes: [ReadWriteOnce]
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 5
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: "romm-assets-dst"
+  namespace: games
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: restic-assets-romm
+    copyMethod: Snapshot # must be Snapshot
+    cacheCapacity: 8Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: [ReadWriteOnce]
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: csi-ceph-blockpool
+    accessModes: [ReadWriteOnce]
+    capacity: 8Gi
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: romm-resources
+  namespace: games
+spec:
+  sourcePVC: romm-resources
+  trigger:
+    schedule: "0 * * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: restic-resources-romm
+    cacheCapacity: 8Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: [ReadWriteOnce]
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: csi-ceph-blockpool
+    accessModes: [ReadWriteOnce]
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 5
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: "romm-resources-dst"
+  namespace: games
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: restic-resouces-romm
+    copyMethod: Snapshot # must be Snapshot
+    cacheCapacity: 8Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: [ReadWriteOnce]
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: csi-ceph-blockpool
+    accessModes: [ReadWriteOnce]
+    capacity: 8Gi
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: romm-redis-data
+  namespace: games
+spec:
+  sourcePVC: romm-redis-data
+  trigger:
+    schedule: "0 * * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: restic-redis-data-romm
+    cacheCapacity: 8Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: [ReadWriteOnce]
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: csi-ceph-blockpool
+    accessModes: [ReadWriteOnce]
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 5
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: "romm-redis-data-dst"
+  namespace: games
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: restic-resouces-romm
+    copyMethod: Snapshot # must be Snapshot
+    cacheCapacity: 8Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: [ReadWriteOnce]
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: csi-ceph-blockpool
+    accessModes: [ReadWriteOnce]
+    capacity: 8Gi
