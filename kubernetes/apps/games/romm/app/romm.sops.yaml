@@ -7,6 +7,8 @@ type: Opaque
 stringData:
     OIDC_CLIENT_ID: ENC[AES256_GCM,data:oGwpLkcX1XB8eEcnL3FLCbqjxDo3VUOhcOoS9fYrvBnFMg+wnQWRpQ==,iv:9nBbR33eZM0lL9cEteBiKXUM+HalTz0udMM26gGmN5k=,tag:lp9lrbfhaUhsROR/6p3tkg==,type:str]
     OIDC_CLIENT_SECRET: ENC[AES256_GCM,data:UbjkrMQVR1wSaWnI8lyo1IJVkOwa+kxNxTnA1Ty8CWfEX/IuydHuhOU1PTgQwi4emtQDnJxIJF0XLkxo6WpfY9+nUJVOIpT8E9J1vbtKkcdaWqOrH4kUqwUINNijVr5suua9Fk1vUrYmuA+hjoKAUEZ5bNlVe0fxNMeQRBbDDTs=,iv:UTYc7nSgyIa4BwOAldjBgKrqo3qMvXUgw3ec9zMiKRQ=,tag:PJl0G8X2T/feEWWWt9Vyxg==,type:str]
+    IGBD_CLIENT_ID: ENC[AES256_GCM,data:oRcSw9umuzJ7iywVuLgxTZnhTigfP4O+KpGG+HAJ,iv:HpxnsnljieNzHswQmqWIVBaxgITX737RzFGgTuMSOks=,tag:AOr6IcSBsgKq10nQafjtKA==,type:str]
+    IGDB_CLIENT_SECRET: ENC[AES256_GCM,data:KElwPcL0GS18wGKga+32Q6Z6+j8L56UW+BGpEzrz,iv:RektCmfSFDCR/Lj2S+K/n7LlVO1IwKMLc1nCaemOWK4=,tag:DTvIgPaoYNomWnJ+K/rFrA==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -22,8 +24,8 @@ sops:
             L3N3Snh6ZDV0Y2pqeDBkRDMyTHVwMncK5Ne1SWQoGRqjYp82mxaV1hcsaCQPeLlS
             lYj1PQmRL+gFRfnn0zszOByJgMLx+jtu9VNSYNUrMCeAT9IFGS8LDw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-03-05T04:54:34Z"
-    mac: ENC[AES256_GCM,data:HJtOdK0wRO2oSVg+ppR3JdY0vVgwuWnzPM8gyzbbuyCpch53AiypjQQPB56bzS4ha2Sl8pkEUQXbIQK0ObVZ2JVKTWLFnrb2+W/B6C0Eb7Eyc0AlrZMKAiIifpxQCpWg0H/y1e8y+BxHaJtnMarStbnGBgJvensfFytApUqGSyI=,iv:LD73D8OOOFYFiMhFg9BtSyhvA+bv2gJ/9HYSaIR/lkk=,tag:5pe7dz1NRd5B1Th6NJZ+EA==,type:str]
+    lastmodified: "2025-03-05T06:59:51Z"
+    mac: ENC[AES256_GCM,data:fNeUpQZAzTEcBhHjFT4yBmFrKmtRInLeang6sOB6mya2bVCH4BzUhrB1bsPYwT0U8xBcwLGDbvMSkQeAI3JfKvC5e9x2Eic76HeShj0jMTgrC9hoRgVwRyux8n50uACFFaD/fo7mzQ1lHjXprkQZZ51GXmy2yu7wV/A4o+dDHJ0=,iv:2dtHqB5UmANd9Ek+xObO+W/Dr2kmG2wxd2pRKrJt4QY=,tag:Fg+TVbupgal4NwnDOQXh/w==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.9.1
