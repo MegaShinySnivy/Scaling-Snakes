@@ -104,7 +104,7 @@ spec:
         tls:
           - hosts:
               - *romm-host
-        className: internal
+        className: external
     persistence:
       config:
         enabled: true
