@@ -14,7 +14,7 @@ resources:
   - ./prowlarr/ks.yaml
   - ./bazarr/ks.yaml
   - ./bazarr-anime/ks.yaml
-  # - ./reminderbot/ks.yaml
+  - ./reminderbot/ks.yaml
   - ./recyclarr/ks.yaml
   - ./komga/ks.yaml
   - ./jellyfin/ks.yaml
