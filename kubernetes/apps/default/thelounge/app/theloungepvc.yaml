@@ -13,4 +13,4 @@ spec:
     name: "thelounge-config-dst"
   resources:
     requests:
-      storage: 8Gi
+      storage: 16Gi
