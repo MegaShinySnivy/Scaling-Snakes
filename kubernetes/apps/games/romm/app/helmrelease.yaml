@@ -26,6 +26,7 @@ spec:
     keepHistory: false
   values:
     defaultPodOptions:
+      enableServiceLinks: false
       securityContext:
         runAsUser: 568
         runAsGroup: 568
