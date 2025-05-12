@@ -7,4 +7,4 @@ resources:
   - ./namespace.yaml
   - ./minio-pvc.yaml
   # Flux-Kustomizations........
-  - ./minio/ks.yaml
+  # - ./minio/ks.yaml
