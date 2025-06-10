@@ -8,8 +8,8 @@ metadata:
 spec:
   bootstrap:
     recovery:
-      backup:
-        name: postgres-v2
+      source: clusterBackup
+      recoveryTarget: "2025-05-07T00:09:06Z"
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:15.2
   primaryUpdateStrategy: unsupervised
