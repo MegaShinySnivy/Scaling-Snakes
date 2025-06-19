@@ -31,7 +31,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://immich-postgres-backups/
       endpointURL: http://10.0.30.12:9001
-      serverName: postgres-v4
+      serverName: postgres-v5
       s3Credentials:
         accessKeyId:
           name: immich-pg-secret
