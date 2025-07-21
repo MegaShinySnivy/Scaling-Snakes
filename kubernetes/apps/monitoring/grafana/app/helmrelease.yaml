@@ -27,6 +27,8 @@ spec:
     - name: local-path-provisioner
       namespace: kube-system
   values:
+    initChownData:
+      enabled: false
     deploymentStrategy:
       type: Recreate
     admin:
