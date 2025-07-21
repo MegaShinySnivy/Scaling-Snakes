@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./games-pvc.yaml
-  - ./zomboid-tf/ks.yaml
+  # - ./zomboid-tf/ks.yaml
   - ./satisfactory/ks.yaml
