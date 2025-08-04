@@ -18,6 +18,9 @@ spec:
     storageClass: local-path
   postgresql:
     parameters:
+      wal_keep_size: "5GB"
+      max_slot_wal_keep_size: "5GB"
+      hot_standby_feedback: "on"
       max_connections: "600"
       shared_buffers: 512MB
   monitoring:
