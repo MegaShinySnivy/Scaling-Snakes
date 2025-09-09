@@ -9,7 +9,7 @@ spec:
     enable: true
   dataDirHostPath: /var/lib/rook
   cephVersion:
-    image: quay.io/ceph/ceph:v19.2.3
+    image: quay.io/ceph/ceph:v20.1.0
   crashCollector:
     disable: true
   healthCheck:
