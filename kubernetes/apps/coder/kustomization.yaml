@@ -6,4 +6,4 @@ resources:
   - ./namespace.yaml
   # Post Flux
   - ./coder/ks.yaml
-  # - ./cluster/ks.yaml
+  - ./cluster/ks.yaml
