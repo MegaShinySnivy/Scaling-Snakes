@@ -5,4 +5,4 @@ resources:
   - ./namespace.yaml
   - ./addons/ks.yaml
   - ./weave-gitops/ks.yaml
-  # - ./addons/ks-notifications.yaml
+  - ./addons/ks-notifications.yaml
