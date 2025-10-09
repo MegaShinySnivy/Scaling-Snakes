@@ -34,7 +34,7 @@ spec:
           main:
             image:
               repository: ghcr.io/cbc02009/komga
-              tag: 1.23.4@sha256:8967cb3a125e149dff250f2888ee47dd71ebd9fe5b7ebaeab7e9e6180ffdc94b
+              tag: 1.23.5@sha256:88c854e52562c841f323c6d558f67a7f41cac378fa32aa600bd7e2bfe7863592
             env:
               TZ: America/Chicago
               KOMGA_CONFIGDIR: /config
