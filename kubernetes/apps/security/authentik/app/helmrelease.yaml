@@ -32,7 +32,7 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/server
-        tag: 2025.8.4
+        tag: 2025.10.1
         # -- optional container image digestzcasdf
         pullPolicy: IfNotPresent
       env:
