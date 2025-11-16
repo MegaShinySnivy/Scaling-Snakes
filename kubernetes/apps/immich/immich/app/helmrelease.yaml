@@ -32,7 +32,7 @@ spec:
     redis:
       image:
         tag: 6.2-debian-12
-      enabled: true
+      enabled: false
       architecture: standalone
       auth:
         enabled: false
