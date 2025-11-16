@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: coder
-      version: 2.27.1
+      version: 2.28.3
       sourceRef:
         kind: HelmRepository
         name: coder-v2
