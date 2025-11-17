@@ -28,10 +28,10 @@ spec:
     image:
       tag: &appVersion "v2.2.3"
     postgres:
-      enabled: false
+      enabled: true
     redis:
       image:
-        tag: 6.2-debian-12
+        tag: 6.2.12@sha256:464b3fe3f00da5bf896cace291e7a419399cf379e98b9b486dd881f9995b72f5
       enabled: false
       architecture: standalone
       auth:
@@ -47,16 +47,16 @@ spec:
           memory: 10Mi
         limits:
           memory: 10Mi
-    valkey:
-      enabled: true
-      controllers:
-        main:
-          containers:
-            main:
-              image:
-                repository: docker.io/valkey/valkey
-                tag: 9.0-alpine@sha256:b4ee67d73e00393e712accc72cfd7003b87d0fcd63f0eba798b23251bfc9c394
-                pullPolicy: IfNotPresent
+    # valkey:
+    #   enabled: true
+    #   controllers:
+    #     main:
+    #       containers:
+    #         main:
+    #           image:
+    #             repository: docker.io/valkey/valkey
+    #             tag: 9.0-alpine@sha256:b4ee67d73e00393e712accc72cfd7003b87d0fcd63f0eba798b23251bfc9c394
+    #             pullPolicy: IfNotPresent
       persistence:
         data:
           enabled: true
