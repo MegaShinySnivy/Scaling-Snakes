@@ -31,7 +31,7 @@ spec:
       enabled: true
     redis:
       image:
-        tag: 6.2.12@sha256:464b3fe3f00da5bf896cace291e7a419399cf379e98b9b486dd881f9995b72f5
+        tag: latest
       enabled: false
       architecture: standalone
       auth:
