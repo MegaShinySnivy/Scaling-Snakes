@@ -29,42 +29,42 @@ spec:
       tag: &appVersion "v2.3.1"
     postgres:
       enabled: true
-    redis:
-      image:
-        tag: latest
-      enabled: false
-      architecture: standalone
-      auth:
-        enabled: false
+    # redis:
+    #   image:
+    #     tag: latest
+    #   enabled: false
+    #   architecture: standalone
+    #   auth:
+    #     enabled: false
+    #   persistence:
+    #     enabled: false
+    #     medium: ""  # Specify the medium for emptyDir (can be "" or "Memory")
+    #     sizeLimit: "8Gi"
+    #     path: /data
+    #   resources:
+    #     requests:
+    #       cpu: 15m
+    #       memory: 10Mi
+    #     limits:
+    #       memory: 10Mi
+    valkey:
+      enabled: true
+      controllers:
+        main:
+          containers:
+            main:
+              image:
+                repository: docker.io/valkey/valkey
+                tag: 9.0-alpine@sha256:b4ee67d73e00393e712accc72cfd7003b87d0fcd63f0eba798b23251bfc9c394
+                pullPolicy: IfNotPresent
       persistence:
-        enabled: false
-        medium: ""  # Specify the medium for emptyDir (can be "" or "Memory")
-        sizeLimit: "8Gi"
-        path: /data
-      resources:
-        requests:
-          cpu: 15m
-          memory: 10Mi
-        limits:
-          memory: 10Mi
-    # valkey:
-    #   enabled: true
-    #   controllers:
-    #     main:
-    #       containers:
-    #         main:
-    #           image:
-    #             repository: docker.io/valkey/valkey
-    #             tag: 9.0-alpine@sha256:b4ee67d73e00393e712accc72cfd7003b87d0fcd63f0eba798b23251bfc9c394
-    #             pullPolicy: IfNotPresent
-      # persistence:
-      #   data:
-      #     enabled: true
-      #     size: 1Gi
-      #     # Optional: Set this to persistentVolumeClaim to keep job queues persistent
-      #     type: emptyDir
-      #     accessMode: ReadWriteOnce
-      #     # storageClass: your-class
+        data:
+          enabled: true
+          size: 1Gi
+          # Optional: Set this to persistentVolumeClaim to keep job queues persistent
+          type: emptyDir
+          accessMode: ReadWriteOnce
+          # storageClass: your-class
     immich:
       metrics:
         enabled: true
