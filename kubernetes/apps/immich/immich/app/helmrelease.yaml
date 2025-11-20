@@ -48,7 +48,7 @@ spec:
     #     limits:
     #       memory: 10Mi
     valkey:
-      enabled: false
+      enabled: true
       controllers:
         main:
           containers:
@@ -59,7 +59,7 @@ spec:
                 pullPolicy: IfNotPresent
       persistence:
         data:
-          enabled: false
+          enabled: true
           size: 1Gi
           # Optional: Set this to persistentVolumeClaim to keep job queues persistent
           type: emptyDir
