@@ -45,10 +45,7 @@ spec:
           main:
             image:
               repository: ghcr.io/wolveix/satisfactory-server
-              tag: dev@sha256:ffbf4a38455d337164649369f08c6129a1941a704ff94ac39f95489a3433e573
-            envFrom:
-              - secretRef:
-                  name: admin-secret
+              tag: v1.19.10
             env:
               TZ: America/Chicago
               MAXPLAYERS: 8
