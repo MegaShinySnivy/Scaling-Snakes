@@ -114,7 +114,7 @@ spec:
       ingress:
         main:
           enabled: true
-          ingressClassName: external
+          className: external
           annotations:
             hajimari.io/icon: mdi:camera-iris
             nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
