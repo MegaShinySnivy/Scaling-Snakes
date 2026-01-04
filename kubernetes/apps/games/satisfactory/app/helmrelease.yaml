@@ -69,6 +69,9 @@ spec:
           sub:
             port: 7777
             protocol: TCP
+          sub2:
+            port: 8888
+            protocol: TCP
     ingress:
       main:
         enabled: false
