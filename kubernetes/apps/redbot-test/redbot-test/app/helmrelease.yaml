@@ -41,7 +41,7 @@ spec:
           main:
             image:
               repository: jank.ing/jjgadgets/redbot
-              tag: 3.5.22@sha256:0b4cdbc40cfb2e19d8555348ac0457f260e01e98f20804c6d222481b7808e1f0
+              tag: 3.5.22
             args: [
               "--debug"
             ]
