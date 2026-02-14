@@ -40,7 +40,7 @@ spec:
         containers:
           main:
             image:
-              repository: jank.ing/jjgadgets/redbot
+              repository: ghcr.io/jjgadgets/redbot
               tag: 3.5.22
             args: [
               "--debug"
