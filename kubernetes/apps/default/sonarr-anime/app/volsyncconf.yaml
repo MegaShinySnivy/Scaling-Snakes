@@ -19,6 +19,7 @@ spec:
     volumeSnapshotClassName: csi-ceph-blockpool
     storageClassName: csi-ceph-blockpool
     accessModes: [ReadWriteOnce]
+    unlock: true
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
