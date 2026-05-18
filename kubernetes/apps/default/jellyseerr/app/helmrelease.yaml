@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: jellyseerr
+  name: seerr
   namespace: default
 spec:
   interval: 15m
@@ -28,9 +28,9 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     controllers:
       main:
@@ -39,8 +39,8 @@ spec:
         containers:
           main:
             image:
-              repository: fallenbagel/jellyseerr
-              tag: 2.7.3
+              repository: seerr-team/seerr
+              tag: latest
             env:
               TZ: America/Chicago
               LOG_LEVEL: info
