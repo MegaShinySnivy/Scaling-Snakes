@@ -134,6 +134,10 @@ spec:
     machine-learning:
       enabled: true
       controllers:
+      resources:
+        requests:
+          cpu: 1500m
+          memory: 600Mi
         main:
           containers:
             main:
