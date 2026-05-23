@@ -40,7 +40,6 @@ spec:
           main:
             image:
               repository: seerr-team/seerr
-              tag: v3.6.0
             env:
               TZ: America/Chicago
               LOG_LEVEL: info

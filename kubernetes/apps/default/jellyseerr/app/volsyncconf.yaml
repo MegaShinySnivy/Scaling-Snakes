@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/volsync.backube/replicationsource_v1alpha1.json
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
@@ -9,9 +8,7 @@ spec:
   sourcePVC: jellyseerr-config
   trigger:
     schedule: "0 * * * *"
-  restic:
-    copyMethod: Snapshot
-    pruneIntervalDays: 7
+  kopia:
     repository: restic-config-jellyseerr
     cacheCapacity: 8Gi
     cacheStorageClassName: local-path
@@ -19,7 +16,6 @@ spec:
     volumeSnapshotClassName: csi-ceph-blockpool
     storageClassName: csi-ceph-blockpool
     accessModes: [ReadWriteOnce]
-    unlock: "true"
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
@@ -28,6 +24,7 @@ spec:
       hourly: 24
       daily: 7
       weekly: 5
+    compression: "zstd"
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
@@ -35,10 +32,11 @@ metadata:
   name: "jellyseerr-config-dst"
 spec:
   trigger:
-    manual: restore-once
-  restic:
+    manual: restore-now
+  kopia:
     repository: restic-config-jellyseerr
-    copyMethod: Snapshot # must be Snapshot
+    destinationPVC: jellyseerr-config
+    copyMethod: Direct
     cacheCapacity: 8Gi
     cacheStorageClassName: local-path
     cacheAccessModes: [ReadWriteOnce]
