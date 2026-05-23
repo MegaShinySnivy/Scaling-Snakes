@@ -39,7 +39,7 @@ spec:
         containers:
           main:
             image:
-              repository: seerr/seerr
+              repository: ghcr.io/seerr-team/seerr
               tag: v3.2.0
             env:
               TZ: America/Chicago
