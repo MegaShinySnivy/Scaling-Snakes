@@ -39,7 +39,7 @@ spec:
         containers:
           main:
             image:
-              repository: seerr-team/seerr
+              repository: seerr/seerr
               tag: v3.2.0
             env:
               TZ: America/Chicago
