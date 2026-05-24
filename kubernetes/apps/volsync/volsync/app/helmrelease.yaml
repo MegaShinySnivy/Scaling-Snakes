@@ -8,10 +8,10 @@ spec:
   chart:
     spec:
       chart: volsync
-      version: 0.15.0
+      version: 0.18.5
       sourceRef:
         kind: HelmRepository
-        name: backube
+        name: perfectrain-backube
         namespace: flux-system
   maxHistory: 2
   install:
@@ -30,12 +30,15 @@ spec:
     manageCRDs: true
     image:
       # https://github.com/backube/volsync/issues/828
-      repository: &image ghcr.io/onedr0p/volsync
-      tag: &tag 0.12.0
+      repository: &image ghcr.io/perfectra1n/volsync
+      tag: &tag 0.17.11
     rclone:
       repository: *image
       tag: *tag
     restic:
+      repository: *image
+      tag: *tag
+    kopia:
       repository: *image
       tag: *tag
     metrics:

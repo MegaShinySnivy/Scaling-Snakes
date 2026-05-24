@@ -28,3 +28,4 @@ resources:
   - ./coder.yaml
   - ./immich.yaml
   - ./zoriya.yaml
+  - ./perfectrain-backube.yaml
