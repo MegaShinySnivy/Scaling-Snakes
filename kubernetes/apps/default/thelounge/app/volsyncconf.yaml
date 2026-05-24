@@ -9,9 +9,7 @@ spec:
   sourcePVC: thelounge-config
   trigger:
     schedule: "0 * * * *"
-  restic:
-    copyMethod: Snapshot
-    pruneIntervalDays: 7
+  kopia:
     repository: restic-config-thelounge
     cacheCapacity: 16Gi
     cacheStorageClassName: local-path
@@ -19,7 +17,6 @@ spec:
     volumeSnapshotClassName: csi-ceph-blockpool
     storageClassName: csi-ceph-blockpool
     accessModes: [ReadWriteOnce]
-    unlock: "true"
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
@@ -37,10 +34,11 @@ metadata:
   # dafaq?
 spec:
   trigger:
-    manual: restore-once
-  restic:
+    manual: restore-now
+  kopia:
     repository: restic-config-thelounge
-    copyMethod: Snapshot # must be Snapshot
+    destinationPVC: jellyseerr-config
+    copyMethod: Direct
     cacheCapacity: 16Gi
     cacheStorageClassName: local-path
     cacheAccessModes: [ReadWriteOnce]
