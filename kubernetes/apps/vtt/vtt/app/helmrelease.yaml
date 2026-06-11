@@ -56,6 +56,7 @@ spec:
       main:
         enabled: true
         annotations:
+          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           hajimari.io/icon: mdi:subtitles-outline
         hosts:
           - host: &host 'vtt.${SECRET_DOMAIN}'
