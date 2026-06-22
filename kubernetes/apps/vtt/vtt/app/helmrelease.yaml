@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: ghcr.io/felddy/foundryvtt
-              tag: 13
+              tag: 14
             envFrom:
               - secretRef:
                   name: vtt-secret
