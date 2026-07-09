@@ -37,7 +37,7 @@ spec:
     manual: restore-now
   kopia:
     repository: restic-config-thelounge
-    destinationPVC: jellyseerr-config
+    destinationPVC: thelounge-config
     copyMethod: Direct
     cacheCapacity: 16Gi
     cacheStorageClassName: local-path
