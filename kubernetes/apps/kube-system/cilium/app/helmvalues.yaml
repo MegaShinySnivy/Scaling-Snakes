@@ -41,6 +41,13 @@ data:
         prometheus:
           serviceMonitor:
             enabled: true
+      tls:
+        enabled: true
+        auto:
+          enabled: true
+          method: cronJob
+          certValidityDuration: 365
+          schedule: "0 0 1 */4 *"
       ui:
         enabled: true
         rollOutPods: true
