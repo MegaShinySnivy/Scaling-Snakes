@@ -14,7 +14,6 @@ resources:
   - ./ingress-nginx.yaml
   - ./jetstack.yaml
   - ./k8s-gateway.yaml
-  - ./kubernetes-dashboard.yaml
   - ./metrics-server.yaml
   - ./piraeus.yaml
   - ./prometheus-community.yaml
@@ -29,3 +28,4 @@ resources:
   - ./immich.yaml
   - ./zoriya.yaml
   - ./perfectrain-backube.yaml
+  - ./kopiur.yaml
