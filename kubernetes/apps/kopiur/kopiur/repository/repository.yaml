@@ -11,8 +11,8 @@ spec:
     s3:
       auth:
         secretRef:
-          name: kopiur-repository-secret
-          namespace: kopiur-system
+          name: kopiur-repo-secret
+          namespace: kopiur
       bucket: backup-target
       endpoint: http://10.0.30.12:9001
       region: us-east-1
@@ -20,8 +20,8 @@ spec:
         disableTls: true
   encryption:
     passwordSecretRef:
-      name: kopiur-repository-secret
-      namespace: kopiur-system
+      name: kopiur-repo-secret
+      namespace: kopiur
       key: KOPIA_PASSWORD
   scheduleDefaults:
     timezone: America/New_York
