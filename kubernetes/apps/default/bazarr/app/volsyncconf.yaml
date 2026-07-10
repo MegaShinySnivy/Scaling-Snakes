@@ -1,48 +1,38 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/volsync.backube/replicationsource_v1alpha1.json
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationSource
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: SnapshotPolicy
 metadata:
   name: bazarr
   namespace: default
 spec:
-  sourcePVC: bazarr-config
-  trigger:
-    schedule: "0 * * * *"
-  restic:
-    copyMethod: Snapshot
-    pruneIntervalDays: 7
-    repository: restic-config-bazarr
-    cacheCapacity: 8Gi
-    cacheStorageClassName: local-path
-    cacheAccessModes: [ReadWriteOnce]
-    volumeSnapshotClassName: csi-ceph-blockpool
-    storageClassName: csi-ceph-blockpool
-    accessModes: [ReadWriteOnce]
-    unlock: "true"
-    moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
+  copyMethod: Snapshot
+  mover:
+    cache:
+      capacity: 8Gi
+      storageClassName: local-path
+    podSecurityContext:
       fsGroup: 568
-    retain:
-      hourly: 24
-      daily: 7
-      weekly: 5
+      runAsGroup: 568
+      runAsUser: 568
+  repository:
+    kind: Repository
+    name: backup-target
+  retention:
+    keepDaily: 7
+    keepHourly: 24
+    keepWeekly: 5
+  sources:
+  - pvc:
+      name: bazarr-config
+  volumeSnapshotClassName: csi-ceph-blockpool
 ---
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationDestination
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: SnapshotSchedule
 metadata:
-  name: "bazarr-config-dst"
+  name: bazarr
+  namespace: default
 spec:
-  trigger:
-    manual: restore-once
-  restic:
-    repository: restic-config-bazarr
-    copyMethod: Snapshot # must be Snapshot
-    cacheCapacity: 8Gi
-    cacheStorageClassName: local-path
-    cacheAccessModes: [ReadWriteOnce]
-    volumeSnapshotClassName: csi-ceph-blockpool
-    storageClassName: csi-ceph-blockpool
-    accessModes: [ReadWriteOnce]
-    capacity: 8Gi
+  policyRef:
+    name: bazarr
+  schedule:
+    cron: 0 * * * *
