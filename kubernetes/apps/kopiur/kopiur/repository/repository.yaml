@@ -8,16 +8,12 @@ spec:
   allowedNamespaces:
     all: true
   backend:
-    s3:
-      auth:
-        secretRef:
-          name: kopiur-repo-secret
-          namespace: kopiur
-      bucket: backup-target
-      endpoint: 10.0.30.12:9001
-      region: us-east-1
-      tls:
-        disableTls: true
+    filesystem:
+      path: /repo
+      volume:
+        nfs:
+          server: 10.0.30.12
+          path: /mnt/THICCBOI1/K8s-NFS/kopia
   encryption:
     passwordSecretRef:
       name: kopiur-repo-secret
