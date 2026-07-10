@@ -4,7 +4,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: kopiur
-  namespace: flux-system
+  namespace: kopiur
 spec:
   interval: 15m
   layerSelector:
