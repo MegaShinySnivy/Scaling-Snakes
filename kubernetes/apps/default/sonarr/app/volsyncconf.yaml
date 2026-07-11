@@ -15,7 +15,7 @@ spec:
       runAsGroup: 568
       runAsUser: 568
   repository:
-    kind: Repository
+    kind: ClusterRepository
     name: backup-target
   retention:
     keepDaily: 7
