@@ -6,3 +6,4 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./redbot-test/ks.yaml
+  - ./kopiursecret.sops.yaml
