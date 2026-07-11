@@ -7,10 +7,10 @@ metadata:
 spec:
   accessModes: ["ReadWriteOnce"]
   storageClassName: csi-ceph-blockpool
-  # dataSourceRef:
-  #   kind: ReplicationDestination
-  #   apiGroup: volsync.backube
-  #   name: "thelounge-config-dst"
+  dataSourceRef:
+    kind: Restore
+    apiGroup: kopiur.home-operations.com
+    name: thelounge
   resources:
     requests:
       storage: 16Gi

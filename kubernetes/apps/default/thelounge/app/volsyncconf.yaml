@@ -14,9 +14,9 @@ spec:
       capacity: 16Gi
       storageClassName: local-path
     podSecurityContext:
-      fsGroup: 568
-      runAsGroup: 568
-      runAsUser: 568
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsUser: 1000
   repository:
     kind: ClusterRepository
     name: backup-target
@@ -39,3 +39,17 @@ spec:
     name: thelounge
   schedule:
     cron: 0 * * * *
+---
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: Restore
+metadata:
+  name: thelounge
+  namespace: default
+spec:
+  source:
+    fromPolicy:
+      name: thelounge
+      namespace: default
+      offset: 0
+  target:
+    populator: {}
