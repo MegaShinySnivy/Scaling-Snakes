@@ -5,5 +5,5 @@ resources:
   - ./namespace.yaml
   - ./games-pvc.yaml
   # - ./zomboid-tf/ks.yaml
-  - ./satisfactory/ks.yaml
-  - ./romm/ks.yaml
+  # - ./satisfactory/ks.yaml
+  # - ./romm/ks.yaml
