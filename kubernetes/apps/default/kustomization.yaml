@@ -13,7 +13,7 @@ resources:
   - ./sabnzbd/ks.yaml
   - ./readarr/ks.yaml
   - ./prowlarr/ks.yaml
-  - ./bazarr/ks.yaml
+  # - ./bazarr/ks.yaml
   - ./bazarr-anime/ks.yaml
   - ./reminderbot/ks.yaml
   - ./recyclarr/ks.yaml
