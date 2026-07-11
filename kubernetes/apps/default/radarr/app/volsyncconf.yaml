@@ -48,3 +48,17 @@ spec:
     name: radarr
   schedule:
     cron: 0 * * * *
+---
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: Restore
+metadata:
+  name: radarr
+  namespace: default
+spec:
+  source:
+    fromPolicy:
+      name: radarr
+      namespace: default
+      offset: 0
+  target:
+    populator: {}

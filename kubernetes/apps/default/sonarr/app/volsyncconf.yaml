@@ -36,3 +36,17 @@ spec:
     name: sonarr
   schedule:
     cron: 0 * * * *
+---
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: Restore
+metadata:
+  name: sonarr
+  namespace: default
+spec:
+  source:
+    fromPolicy:
+      name: sonarr
+      namespace: default
+      offset: 0
+  target:
+    populator: {}

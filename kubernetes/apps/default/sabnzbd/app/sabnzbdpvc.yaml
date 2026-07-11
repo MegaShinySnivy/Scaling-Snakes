@@ -8,9 +8,9 @@ spec:
   accessModes: ["ReadWriteOnce"]
   storageClassName: csi-ceph-blockpool
   dataSourceRef:
-    kind: ReplicationDestination
-    apiGroup: volsync.backube
-    name: "sabnzbd-config-dst"
+    kind: Restore
+    apiGroup: kopiur.home-operations.com
+    name: sabnzbd
   resources:
     requests:
       storage: 8Gi

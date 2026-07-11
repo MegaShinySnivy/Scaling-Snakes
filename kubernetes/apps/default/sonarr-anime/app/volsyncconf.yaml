@@ -36,3 +36,17 @@ spec:
     name: sonarr-anime
   schedule:
     cron: 0 * * * *
+---
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: Restore
+metadata:
+  name: sonarr-anime
+  namespace: default
+spec:
+  source:
+    fromPolicy:
+      name: sonarr-anime
+      namespace: default
+      offset: 0
+  target:
+    populator: {}

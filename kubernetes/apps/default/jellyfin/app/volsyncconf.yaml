@@ -36,3 +36,17 @@ spec:
     name: jellyfin
   schedule:
     cron: 0 * * * *
+---
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: Restore
+metadata:
+  name: jellyfin
+  namespace: default
+spec:
+  source:
+    fromPolicy:
+      name: jellyfin
+      namespace: default
+      offset: 0
+  target:
+    populator: {}

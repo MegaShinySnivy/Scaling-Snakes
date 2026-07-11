@@ -33,3 +33,17 @@ spec:
     name: komga
   schedule:
     cron: 0 0 * * *
+---
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: Restore
+metadata:
+  name: komga
+  namespace: default
+spec:
+  source:
+    fromPolicy:
+      name: komga
+      namespace: default
+      offset: 0
+  target:
+    populator: {}

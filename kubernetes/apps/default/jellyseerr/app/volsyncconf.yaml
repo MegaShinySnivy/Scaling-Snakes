@@ -57,3 +57,17 @@ spec:
     name: jellyseerr
   schedule:
     cron: 0 * * * *
+---
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: Restore
+metadata:
+  name: jellyseerr
+  namespace: default
+spec:
+  source:
+    fromPolicy:
+      name: jellyseerr
+      namespace: default
+      offset: 0
+  target:
+    populator: {}

@@ -8,9 +8,9 @@ spec:
   accessModes: ["ReadWriteOnce"]
   storageClassName: csi-ceph-blockpool
   dataSourceRef:
-    kind: ReplicationDestination
-    apiGroup: volsync.backube
-    name: "jellyfin-config-dst"
+    kind: Restore
+    apiGroup: kopiur.home-operations.com
+    name: jellyfin
   resources:
     requests:
       storage: 32Gi

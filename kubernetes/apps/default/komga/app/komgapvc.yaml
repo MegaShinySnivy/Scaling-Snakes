@@ -8,9 +8,9 @@ spec:
   accessModes: ["ReadWriteOnce"]
   storageClassName: csi-ceph-blockpool
   dataSourceRef:
-    kind: ReplicationDestination
-    apiGroup: volsync.backube
-    name: "komga-config-dst"
+    kind: Restore
+    apiGroup: kopiur.home-operations.com
+    name: komga
   resources:
     requests:
       storage: 32Gi
