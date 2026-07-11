@@ -6,7 +6,7 @@ resources:
   - ./media-pvc.yaml
   - ./kopiursecret.sops.yaml
   - ./hajimari/ks.yaml
-  # - ./thelounge/ks.yaml
+  - ./thelounge/ks.yaml
   - ./sonarr-anime/ks.yaml
   - ./sonarr/ks.yaml
   - ./radarr/ks.yaml
