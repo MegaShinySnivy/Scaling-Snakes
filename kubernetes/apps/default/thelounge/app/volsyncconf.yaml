@@ -27,7 +27,6 @@ spec:
   sources:
   - pvc:
       name: thelounge-config
-    sourcePathOverride: /data
   volumeSnapshotClassName: csi-ceph-blockpool
 ---
 apiVersion: kopiur.home-operations.com/v1alpha1
