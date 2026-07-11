@@ -36,3 +36,17 @@ spec:
     name: bazarr
   schedule:
     cron: 0 * * * *
+---
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: Restore
+metadata:
+  name: bazarr
+  namespace: default
+spec:
+  source:
+    fromPolicy:
+      name: bazarr
+      namespace: default
+      offset: 0
+  target:
+    populator: {}

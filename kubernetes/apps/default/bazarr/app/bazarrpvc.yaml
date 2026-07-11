@@ -8,9 +8,9 @@ spec:
   accessModes: ["ReadWriteOnce"]
   storageClassName: csi-ceph-blockpool
   dataSourceRef:
-    kind: ReplicationDestination
-    apiGroup: volsync.backube
-    name: "bazarr-config-dst"
+    kind: Restore
+    apiGroup: kopiur.home-operations.com
+    name: bazarr
   resources:
     requests:
       storage: 8Gi
