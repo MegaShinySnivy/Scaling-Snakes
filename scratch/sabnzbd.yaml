@@ -1,3 +1,15 @@
+# ============================================================================
+# kopiur migrate volsync
+#
+# restic-mover sources: CONFIG TRANSLATION ONLY
+#
+# A VolSync restic repository is NOT a kopia repository. NO backup data is
+# migrated; the kopiur repository referenced below starts EMPTY and fills as
+# kopiur takes its own snapshots. Keep VolSync (and its repository) until
+# kopiur's retention coverage is sufficient for your recovery needs.
+#
+# Review the per-field accounting printed on stderr before applying.
+# ============================================================================
 ---
 apiVersion: kopiur.home-operations.com/v1alpha1
 kind: SnapshotPolicy

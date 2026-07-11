@@ -1,12 +1,15 @@
 # ============================================================================
 # kopiur migrate volsync
 #
-# restic-mover sources: CONFIG TRANSLATION ONLY
+# kopia-mover sources: REPOSITORY ADOPTED IN PLACE
 #
-# A VolSync restic repository is NOT a kopia repository. NO backup data is
-# migrated; the kopiur repository referenced below starts EMPTY and fills as
-# kopiur takes its own snapshots. Keep VolSync (and its repository) until
-# kopiur's retention coverage is sufficient for your recovery needs.
+# The fork's repository IS a kopia repository: the Repository below connects
+# to it as-is and ALL existing snapshots are preserved. Translated policies
+# pin the fork's snapshot identity (username@hostname:/data), so history
+# continues seamlessly. KEEP the referenced VolSync Secret(s) — kopiur reads
+# the password (and matching credentials) from them IN PLACE. kopiur takes
+# over repository maintenance on its first run; retire the fork's
+# KopiaMaintenance objects and ReplicationSources once kopiur is green.
 #
 # Review the per-field accounting printed on stderr before applying.
 # ============================================================================
@@ -14,13 +17,16 @@
 apiVersion: kopiur.home-operations.com/v1alpha1
 kind: SnapshotPolicy
 metadata:
-  name: readarr
+  name: thelounge
   namespace: default
 spec:
-  copyMethod: Snapshot
+  copyMethod: Direct
+  identity:
+    hostname: default
+    username: thelounge
   mover:
     cache:
-      capacity: 8Gi
+      capacity: 16Gi
       storageClassName: local-path
     podSecurityContext:
       fsGroup: 568
@@ -35,16 +41,17 @@ spec:
     keepWeekly: 5
   sources:
   - pvc:
-      name: readarr-config
+      name: thelounge-config
+    sourcePathOverride: /data
   volumeSnapshotClassName: csi-ceph-blockpool
 ---
 apiVersion: kopiur.home-operations.com/v1alpha1
 kind: SnapshotSchedule
 metadata:
-  name: readarr
+  name: thelounge
   namespace: default
 spec:
   policyRef:
-    name: readarr
+    name: thelounge
   schedule:
     cron: 0 * * * *

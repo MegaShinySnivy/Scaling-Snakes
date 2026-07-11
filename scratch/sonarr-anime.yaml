@@ -14,7 +14,7 @@
 apiVersion: kopiur.home-operations.com/v1alpha1
 kind: SnapshotPolicy
 metadata:
-  name: readarr
+  name: sonarr-anime
   namespace: default
 spec:
   copyMethod: Snapshot
@@ -35,16 +35,16 @@ spec:
     keepWeekly: 5
   sources:
   - pvc:
-      name: readarr-config
+      name: sonarr-anime-config
   volumeSnapshotClassName: csi-ceph-blockpool
 ---
 apiVersion: kopiur.home-operations.com/v1alpha1
 kind: SnapshotSchedule
 metadata:
-  name: readarr
+  name: sonarr-anime
   namespace: default
 spec:
   policyRef:
-    name: readarr
+    name: sonarr-anime
   schedule:
     cron: 0 * * * *

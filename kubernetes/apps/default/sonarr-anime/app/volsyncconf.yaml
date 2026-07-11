@@ -1,50 +1,38 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/volsync.backube/replicationsource_v1alpha1.json
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationSource
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: SnapshotPolicy
 metadata:
   name: sonarr-anime
   namespace: default
 spec:
-  sourcePVC: sonarr-anime-config
-  trigger:
-    schedule: "0 * * * *"
-  restic:
-    copyMethod: Snapshot
-    pruneIntervalDays: 7
-    repository: restic-config-sonarr-anime
-    cacheCapacity: 8Gi
-    cacheStorageClassName: local-path
-    cacheAccessModes: [ReadWriteOnce]
-    volumeSnapshotClassName: csi-ceph-blockpool
-    storageClassName: csi-ceph-blockpool
-    accessModes: [ReadWriteOnce]
-    unlock: "true"
-    moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
+  copyMethod: Snapshot
+  mover:
+    cache:
+      capacity: 8Gi
+      storageClassName: local-path
+    podSecurityContext:
       fsGroup: 568
-    retain:
-      hourly: 24
-      daily: 7
-      weekly: 5
+      runAsGroup: 568
+      runAsUser: 568
+  repository:
+    kind: Repository
+    name: backup-target
+  retention:
+    keepDaily: 7
+    keepHourly: 24
+    keepWeekly: 5
+  sources:
+  - pvc:
+      name: sonarr-anime-config
+  volumeSnapshotClassName: csi-ceph-blockpool
 ---
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationDestination
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: SnapshotSchedule
 metadata:
-  name: "sonarr-anime-config-dst"
+  name: sonarr-anime
   namespace: default
-  # dafaq?
 spec:
-  trigger:
-    manual: restore-once
-  restic:
-    repository: restic-config-sonarr-anime
-    copyMethod: Snapshot # must be Snapshot
-    cacheCapacity: 8Gi
-    cacheStorageClassName: local-path
-    cacheAccessModes: [ReadWriteOnce]
-    volumeSnapshotClassName: csi-ceph-blockpool
-    storageClassName: csi-ceph-blockpool
-    accessModes: [ReadWriteOnce]
-    capacity: 8Gi
+  policyRef:
+    name: sonarr-anime
+  schedule:
+    cron: 0 * * * *
