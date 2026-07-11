@@ -5,10 +5,7 @@ metadata:
   name: thelounge
   namespace: default
 spec:
-  copyMethod: Direct
-  identity:
-    hostname: default
-    username: thelounge
+  copyMethod: Snapshot
   mover:
     cache:
       capacity: 16Gi
