@@ -40,10 +40,10 @@ spec:
           main:
             image:
       # -- image repository
-              repository: ghcr.io/onedr0p/sonarr-develop
+              repository: ghcr.io/home-operations/sonarr-develop
       # @default -- chart.appVersion
               tag:
-                4.0.14.2938@sha256:75da01d2da78d226cd89352fbab919f2eb26ea9a8d6c592bf812dde5f8949243
+                4.0.18.2978@sha256:2cd77fb3d81909a734d61bb8f71462044cb9d2f187e626a28a05a5c4e4be8fd2
       # -- image pull policy
               pullPolicy: IfNotPresent
             envFrom:

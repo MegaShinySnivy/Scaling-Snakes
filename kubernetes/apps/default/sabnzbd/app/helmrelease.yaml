@@ -40,9 +40,9 @@ spec:
           main:
             image:
       # -- image repository
-              repository: ghcr.io/onedr0p/sabnzbd
+              repository: ghcr.io/home-operations/sabnzbd
       # @default -- chart.appVersion
-              tag: 4.4.1@sha256:36674664a94760ae934c09b1d97546a3e79a0f110edda88085e74778c26d68e3
+              tag: 5.0.4@sha256:457be5fad7b83c338a981f1945e1ecae2dedd0cc81cdd2992673b0dc84fc2890
       # -- image pull policy
               pullPolicy: IfNotPresent
             envFrom:
