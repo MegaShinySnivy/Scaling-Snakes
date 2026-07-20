@@ -41,7 +41,7 @@ spec:
           main:
             image:
               repository: ghcr.io/rommapp/romm
-              tag: 4.9.2
+              tag: 5.0.0
               pullPolicy: IfNotPresent
             envFrom:
               - secretRef:
