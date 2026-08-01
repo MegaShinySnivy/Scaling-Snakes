@@ -8,8 +8,7 @@ metadata:
 spec:
   bootstrap:
     recovery:
-      backup:
-        source: clusterBackup
+      source: clusterBackup
   instances: 3
   imageName: ghcr.io/tensorchord/cloudnative-vectorchord:14.12-v0.2.1
   primaryUpdateStrategy: unsupervised
