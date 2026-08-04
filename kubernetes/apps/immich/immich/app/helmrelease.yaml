@@ -157,3 +157,10 @@ spec:
           type: emptyDir
           accessMode: ReadWriteMany
           # storageClass: your-class
+        data:
+          enabled: true
+          existingClaim: immich-nfs
+          accessMode: ReadWriteMany
+          retain: true
+          globalMounts:
+            - path: /data
