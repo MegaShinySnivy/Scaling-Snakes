@@ -41,7 +41,7 @@ spec:
           main:
             image:
               repository: ghcr.io/jjgadgets/redbot
-              tag: 3.5.22
+              tag: 3.5.24
             args: [
               "--debug"
             ]
