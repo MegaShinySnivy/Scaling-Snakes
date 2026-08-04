@@ -108,10 +108,10 @@ spec:
               image:
                 repository: ghcr.io/immich-app/immich-server
                 pullPolicy: IfNotPresent
-            resources:
-              requests:
-                cpu: 1500m
-                memory: 600Mi
+              resources:
+                requests:
+                  cpu: 1500m
+                  memory: 600Mi
       ingress:
         main:
           enabled: true
