@@ -5,6 +5,6 @@ kind: Kustomization
 namespace: default
 resources:
   - ./jellyseerrpvc.yaml
-  - ./helmrelease.yaml
+  # - ./helmrelease.yaml
   - ./volsyncconf.yaml
   - ./volsyncsecret.sops.yaml
