@@ -16,7 +16,7 @@ spec:
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
-      name: jellyseerr
+      name: seerr
       namespace: default
   interval: 15m
   retryInterval: 1m

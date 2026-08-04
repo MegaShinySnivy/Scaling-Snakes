@@ -131,7 +131,6 @@ spec:
           tls:
             - hosts:
                 - *host
-
       machine-learning:
         enabled: true
         controllers:
