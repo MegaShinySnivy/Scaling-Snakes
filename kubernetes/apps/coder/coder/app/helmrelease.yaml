@@ -59,9 +59,9 @@ spec:
         - name: CODER_OIDC_GROUP_FIELD
           value: groups
         - name: CODER_OIDC_IGNORE_EMAIL_VERIFIED
-          value: true
+          value: "true"
         - name: CODER_DISABLE_PASSWORD_AUTH
-          value: true
+          value: "true"
         - name: CODER_OIDC_CLIENT_ID
           valueFrom:
             secretKeyRef:
