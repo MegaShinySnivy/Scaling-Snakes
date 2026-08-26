@@ -45,7 +45,7 @@ spec:
           main:
             image:
               repository: danixu86/project-zomboid-dedicated-server
-              tag: latest@sha256:4501a70535ec28af152dd9f67c6e4e17899a9626aabcdeecc6ae0e1b835e49f0
+              tag: latest@sha256:a98b0f219f63ad9f08b0658cf77c2c165705ab8d74775fd3db6e50fd6f4961e1
             envFrom:
               - secretRef:
                   name: admin-secret
