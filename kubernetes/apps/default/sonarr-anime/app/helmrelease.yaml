@@ -43,7 +43,7 @@ spec:
               repository: ghcr.io/home-operations/sonarr
       # @default -- chart.appVersion
               tag:
-                4.0.19.2995@sha256:e679d9abf64f7a1edaf340f5c3fea20efed55fb1489ef8ba42f3404caed43590
+                5.0.0.2635@sha256:d40f6e5b384eb9489944ea939b20a6903dadffedc26624aaa322ca712a3c8260
       # -- image pull policy
               pullPolicy: IfNotPresent
             envFrom:
