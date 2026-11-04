@@ -43,7 +43,7 @@ spec:
               repository: ghcr.io/home-operations/radarr
       # @default -- chart.appVersion
               tag:
-                 6.4.0.10540@sha256:d380d69c729b4116d224ebb0b4909ff22395fc7b78e8a1976c43ae09430ffc5a
+                 7.0.1.10859@sha256:ffe1f4d7c30b33a1e1256e14ace0eefddf120b37d8defceba208e9c190772f8d
       # -- image pull policy
               pullPolicy: IfNotPresent
             envFrom:
