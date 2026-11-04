@@ -41,7 +41,7 @@ spec:
             image:
               repository: ghcr.io/home-operations/prowlarr
               tag:
-                2.6.0.5494@sha256:f2db7fc93c2c26476de74695b565bfced0f39255cdba30fedf6d1ec45789f818
+                3.0.0.5737@sha256:0954599432e16ccd86129f1eb8eb0247fd0d1591aab400f73e2010a1cda37be8
             envFrom:
               - secretRef:
                   name: prowlarr-secret
