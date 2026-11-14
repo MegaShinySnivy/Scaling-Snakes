@@ -19,7 +19,7 @@ jobs:
         resource: ["helmrelease", "kustomization"]
     steps:
       - name: Setup Flux CLI
-        uses: fluxcd/flux2/action@6f81f5c8fa69fc5aea343989a2958212d827121c # main
+        uses: fluxcd/flux2/action@8e1894f89c61c1b505a72fa50bdadeb1532a8d6b # main
         with:
           # Flux CLI version e.g. 2.0.0.
           # Defaults to latest stable release.
