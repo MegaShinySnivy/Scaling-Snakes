@@ -39,7 +39,7 @@ spec:
           main:
             image:
               repository: ghcr.io/megashinysnivy/aurum-site
-              tag: latest@sha256:d556b6c8e50ae500011fedebff06fd9bd1c724a8d2c3b2b84826aa34180f95cb
+              tag: latest@sha256:7a9b93e87ec42a41c1ecba8381df0ba4479073efecc789ab0de14ec4a810a30e
             env:
               TZ: America/Chicago
     service:
